@@ -1,0 +1,26 @@
+tmp
+
+*.iml
+.idea
+*.pyc
+*.class
+.project
+.classpath
+.settings
+.working
+target
+test-output
+bin
+
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+log
+release
+/target
+appengine-generated
+.DS_Store
+node_modules
