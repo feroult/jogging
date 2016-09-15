@@ -10,7 +10,7 @@ public class User {
     @Id
     IdRef<User> id;
 
-    String user;
+    String username;
 
     String password;
 
@@ -20,5 +20,9 @@ public class User {
 
     public IdRef<User> getId() {
         return id;
+    }
+
+    public String getUsername() {
+        return username;
     }
 }
