@@ -5,6 +5,7 @@ import jogging.utils.EndpointTestCase;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class AuthUtilsTest extends EndpointTestCase {
@@ -18,6 +19,11 @@ public class AuthUtilsTest extends EndpointTestCase {
 
         assertTrue(isValidToken);
         assertEquals(john.getId(), AuthUtils.getCurrentUserId());
+    }
+
+    @Test
+    public void testInvalidToken() {
+        assertFalse(AuthUtils.validateAndRegisterUser("xpto"));
     }
 
 }
