@@ -58,13 +58,7 @@ public class SecurityFilter implements Filter {
             return false;
         }
 
-//        try {
-//            UserUtils.validateAndRegisterUser(token);
-//        } catch (InvalidFirebaseTokenException e) {
-//            return false;
-//        }
-
-        return true;
+        return AuthUtils.validateAndRegisterUser(token);
     }
 
     private String getAccessToken(HttpServletRequest req) {
