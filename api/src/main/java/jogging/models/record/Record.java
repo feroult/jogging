@@ -10,4 +10,10 @@ public class Record {
     @Id
     IdRef<Record> id;
 
+    long timestamp;
+
+    int time;
+
+    int distance;
+
 }
