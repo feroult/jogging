@@ -10,4 +10,15 @@ public class User {
     @Id
     IdRef<User> id;
 
+    String user;
+
+    String password;
+
+    String name;
+
+    Role role;
+
+    public IdRef<User> getId() {
+        return id;
+    }
 }
