@@ -30,10 +30,13 @@ public class EndpointTestCase extends EndpointTestCaseBase {
         try {
             user = userId.fetch();
         } catch (NoResultException e) {
-            user = new UserBuilder().username(username).name(username).build();
+            user = new UserBuilder()
+                    .id(userId)
+                    .username(username)
+                    .name(username).build();
             yawp.save(user);
         }
         return user;
     }
-    
+
 }

@@ -1,11 +1,18 @@
 package jogging.models.user;
 
+import io.yawp.repository.IdRef;
+
 public class UserBuilder {
 
     User user;
 
     public UserBuilder() {
         this.user = new User();
+    }
+
+    public UserBuilder id(IdRef<User> id) {
+        user.id = id;
+        return this;
     }
 
     public UserBuilder username(String username) {
