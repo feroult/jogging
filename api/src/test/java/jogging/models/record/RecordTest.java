@@ -1,11 +1,12 @@
 package jogging.models.record;
 
+import io.yawp.commons.utils.JsonUtils;
 import jogging.utils.EndpointTestCase;
 import org.junit.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -42,9 +43,11 @@ public class RecordTest extends EndpointTestCase {
         postRecord("2016/08/07 10:00:00", 3600, 10000);
         postRecord("2016/08/08 10:00:00", 4000, 10000);
 
-        List<WeeklyReport> wr = fromList(get("/records/weekly-report"), WeeklyReport.class);
+        Map<String, WeeklyReport> wrs = JsonUtils.fromMap(yawp, get("/records/weekly-report"), String.class, WeeklyReport.class);
 
         // TODO asserts
+        assertEquals((5000 + 5000) / (double) (1800 + 2000), wrs.get("2016/07/31").avgSpeed, 0);
+        assertEquals(5000, wrs.get("2016/07/31").avgDistance);
     }
 
     private long timestamp(String datetime) {

@@ -20,5 +20,6 @@ public class Record {
     int time;
 
     int distance;
+    private String week;
 
 }
