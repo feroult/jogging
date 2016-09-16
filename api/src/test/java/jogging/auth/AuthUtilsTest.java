@@ -12,7 +12,8 @@ public class AuthUtilsTest extends EndpointTestCase {
 
     @Test
     public void testAuthTokenCreationAndValidation() {
-        User john = from(post("/users/john", "{name: 'john'}"), User.class);
+        post("/users/sign-up", "{username: 'john', password: 'pass', name: 'john'}");
+        User john = id(User.class, "john").fetch();
 
         String token = AuthUtils.createJwtToken(john);
         boolean isValidToken = AuthUtils.validateAndRegisterUser(token);
