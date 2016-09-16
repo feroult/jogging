@@ -45,9 +45,13 @@ public class RecordTest extends EndpointTestCase {
 
         Map<String, WeeklyReport> wrs = JsonUtils.fromMap(yawp, get("/records/weekly-report"), String.class, WeeklyReport.class);
 
-        // TODO asserts
-        assertEquals((5000 + 5000) / (double) (1800 + 2000), wrs.get("2016/07/31").avgSpeed, 0);
-        assertEquals(5000, wrs.get("2016/07/31").avgDistance);
+        assertWeeklyReport(wrs, "2016/07/31", (5000 + 5000) / (double) (1800 + 2000), 5000);
+        assertWeeklyReport(wrs, "2016/08/07", (10000 + 10000) / (double) (3600 + 4000), 10000);
+    }
+
+    private void assertWeeklyReport(Map<String, WeeklyReport> wrs, String week, double expectedAvgSpeed, int expectedAvgDistance) {
+        assertEquals(expectedAvgSpeed, wrs.get(week).avgSpeed, 0);
+        assertEquals(expectedAvgDistance, wrs.get(week).avgDistance);
     }
 
     private long timestamp(String datetime) {
