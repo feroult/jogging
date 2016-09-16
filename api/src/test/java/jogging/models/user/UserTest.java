@@ -12,4 +12,13 @@ public class UserTest extends EndpointTestCase {
     }
 
 
+    @Test
+    public void testUserSignIn() {
+        post("/users/sign-up", "{username: 'john', password: 'pass', name: 'john'}");
+
+        assertPostWithStatus("/users/sign-in", "{username: 'john', password: 'pass'}", 200);
+        assertPostWithStatus("/users/sign-in", "{username: 'john', password: 'wrong-pass'}", 400);
+    }
+
+
 }
