@@ -10,7 +10,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class RecordTest extends EndpointTestCase {
-    
+
     private static SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
     @Test
@@ -54,6 +54,5 @@ public class RecordTest extends EndpointTestCase {
             throw new RuntimeException(e);
         }
     }
-
 
 }
