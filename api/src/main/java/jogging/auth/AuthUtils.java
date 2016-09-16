@@ -20,6 +20,7 @@ public class AuthUtils {
     private static String secret = "secret";
 
     private static ThreadLocal<User> currentUser = new ThreadLocal<>();
+    private static boolean userLoggedIn;
 
     public static IdRef<User> getCurrentUserId() {
         return currentUser.get().getId();
@@ -27,6 +28,10 @@ public class AuthUtils {
 
     public static User getCurrentUser() {
         return currentUser.get();
+    }
+
+    public static boolean isUserLoggedIn() {
+        return getCurrentUser() != null;
     }
 
     public static void setCurrentUser(User user) {
@@ -65,5 +70,4 @@ public class AuthUtils {
         IdRef<User> userId = IdRef.parse(User.class, yawp(), userIdUri);
         return userId.fetch();
     }
-
 }

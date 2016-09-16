@@ -25,6 +25,11 @@ public class UserBuilder {
         return this;
     }
 
+    public UserBuilder role(Role role) {
+        user.role = role;
+        return this;
+    }
+
     public User build() {
         return user;
     }
