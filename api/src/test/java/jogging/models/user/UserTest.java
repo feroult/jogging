@@ -11,7 +11,6 @@ public class UserTest extends EndpointTestCase {
         assertPostWithStatus("/users/sign-up", "{username: 'john', password: 'pass', name: 'john'}", 409);
     }
 
-
     @Test
     public void testUserSignIn() {
         post("/users/sign-up", "{username: 'john', password: 'pass', name: 'john'}");
@@ -20,5 +19,14 @@ public class UserTest extends EndpointTestCase {
         assertPostWithStatus("/users/sign-in", "{username: 'john', password: 'wrong-pass'}", 400);
     }
 
+    @Test
+    public void testRegularUsersCantManageUsers() {
+        login("john");
+        assertGetWithStatus("/users", 404);
+        assertPostWithStatus("/users", "{}", 404);
+        assertPutWithStatus("/users/john", "{}", 404);
+        assertPatchWithStatus("/users/john", "{}", 404);
+        assertDeleteWithStatus("/users/john", 404);
+    }
 
 }
