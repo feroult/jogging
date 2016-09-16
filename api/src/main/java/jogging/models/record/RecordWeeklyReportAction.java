@@ -15,26 +15,31 @@ public class RecordWeeklyReportAction extends Action<Record> {
 
     @GET
     public Map<String, WeeklyReport> weeklyReport() {
-        IdRef<User> userId = AuthUtils.getCurrentUserId();
-        List<Record> records = yawp(Record.class).where("userId", "=", userId).list();
-
+        List<Record> records = getRecords();
 
         Map<String, WeeklyReport> reports = new TreeMap<>();
 
         for (Record record : records) {
-
-            String week = getWeek(record);
-
-            if (!reports.containsKey(week)) {
-                reports.put(week, new WeeklyReport());
-            }
-
-            WeeklyReport wr = reports.get(week);
-            wr.addRecord(record);
+            addRecordToReport(reports, record);
         }
 
-
         return reports;
+    }
+
+    private void addRecordToReport(Map<String, WeeklyReport> reports, Record record) {
+        String week = getWeek(record);
+
+        if (!reports.containsKey(week)) {
+            reports.put(week, new WeeklyReport());
+        }
+
+        WeeklyReport wr = reports.get(week);
+        wr.addRecord(record);
+    }
+
+    private List<Record> getRecords() {
+        IdRef<User> userId = AuthUtils.getCurrentUserId();
+        return yawp(Record.class).where("userId", "=", userId).list();
     }
 
     private String getWeek(Record record) {
