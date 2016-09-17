@@ -67,6 +67,5 @@ public class UserTest extends EndpointTestCase {
     }
 
     // test admins
-    // test users can't delete themselves
     // test users can't change username
 }
