@@ -23,4 +23,7 @@ public class UserFacades {
 
     }
 
+    public interface Admin extends Manager {
+    }
+
 }

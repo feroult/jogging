@@ -81,10 +81,40 @@ public class UserTest extends EndpointTestCase {
     }
 
     @Test
-    public void testManagersCanManageUsers() {
+    public void testManagersCanManageOtherUsers() {
+        canManageUsersLoggedAs(Role.MANAGER);
+    }
+
+    @Test
+    public void testManagersCanUpdateOtherUsersRole() {
+        canUpdateOtherUserRoleLoggedAs(Role.MANAGER);
+    }
+
+    @Test
+    public void testManagersCannotUpdateTheirOwnRole() {
+        cannotChangeItsOwnRoleLoggedAs(Role.MANAGER);
+    }
+
+
+    @Test
+    public void testAdminsCanManageOtherUsers() {
+        canManageUsersLoggedAs(Role.ADMIN);
+    }
+
+    @Test
+    public void testAdminsCanUpdateOtherUsersRole() {
+        canUpdateOtherUserRoleLoggedAs(Role.ADMIN);
+    }
+
+    @Test
+    public void testAdminsCannotUpdateTheirOwnRole() {
+        cannotChangeItsOwnRoleLoggedAs(Role.ADMIN);
+    }
+
+    private void canManageUsersLoggedAs(Role role) {
         post("/users/sign-up", JOHN_SIGNUP_JSON);
 
-        login("paul", Role.MANAGER);
+        login("paul", role);
         assertGetWithStatus("/users", 200);
         assertPostWithStatus("/users", "{username: 'peter', password: 'pass', name: 'peter'}", 200);
         assertPutWithStatus("/users/john", "{username: 'john', password: 'pass', name: 'john'}", 200);
@@ -92,26 +122,22 @@ public class UserTest extends EndpointTestCase {
         assertDeleteWithStatus("/users/john", 200);
     }
 
-    @Test
-    public void testManagersCanUpdateOtherUsersRole() {
+    private void canUpdateOtherUserRoleLoggedAs(Role role) {
         post("/users/sign-up", JOHN_SIGNUP_JSON);
 
-        login("paul", Role.MANAGER);
+        login("paul", role);
         patch("/users/john", "{role: 'MANAGER'}");
 
         User john = from(get("/users/john"), User.class);
         assertEquals(Role.MANAGER, john.role);
     }
 
-    @Test
-    public void testManagersCannotUpdateTheirOwnRole() {
-        login("paul", Role.MANAGER);
+    private void cannotChangeItsOwnRoleLoggedAs(Role role) {
+        login("paul", role);
 
-        patch("/users/paul", "{role: 'ADMIN'}");
+        patch("/users/paul", "{role: 'USER'}");
 
         User paul = from(get("/users/paul"), User.class);
-        assertEquals(Role.MANAGER, paul.role);
+        assertEquals(role, paul.role);
     }
-
-    // test admins
 }

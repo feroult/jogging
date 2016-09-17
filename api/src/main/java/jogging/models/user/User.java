@@ -5,7 +5,7 @@ import io.yawp.repository.annotations.Endpoint;
 import io.yawp.repository.annotations.Id;
 
 @Endpoint(path = "/users")
-public class User implements UserFacades.Regular, UserFacades.Manager {
+public class User implements UserFacades.Regular, UserFacades.Manager, UserFacades.Admin {
 
     @Id
     IdRef<User> id;
@@ -67,4 +67,7 @@ public class User implements UserFacades.Regular, UserFacades.Manager {
         return role.equals(Role.MANAGER);
     }
 
+    public boolean isAdmin() {
+        return role.equals(Role.ADMIN);
+    }
 }
