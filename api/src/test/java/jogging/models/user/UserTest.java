@@ -95,7 +95,6 @@ public class UserTest extends EndpointTestCase {
         cannotChangeItsOwnRoleLoggedAs(Role.MANAGER);
     }
 
-
     @Test
     public void testAdminsCanManageOtherUsers() {
         canManageUsersLoggedAs(Role.ADMIN);

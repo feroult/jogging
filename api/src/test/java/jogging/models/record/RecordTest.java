@@ -27,10 +27,6 @@ public class RecordTest extends EndpointTestCase {
         assertEquals(5000, record.distance);
     }
 
-    private String postRecord(String datetime, int time, int distance) {
-        return post("/records", String.format("{timestamp: %d, time: %d, distance: %d}", timestamp(datetime), time, distance));
-    }
-
     @Test
     public void testWeeklyReport() {
         login("john");
@@ -76,4 +72,33 @@ public class RecordTest extends EndpointTestCase {
         }
     }
 
+    @Test
+    public void testUsersCanCrudTheirRecords() {
+        login("john");
+        Record record = from(postRecord("2016/07/31 10:00:00", 1800, 5000), Record.class);
+
+        assertGetWithStatus(record.id.getUri(), 200);
+        assertEquals(1, fromList(get("/records"), Record.class).size());
+
+        patch(record.id.getUri(), "{distance: 1000}");
+        Record patchedRecord = record.id.fetch();
+        assertEquals(1000, patchedRecord.distance);
+    }
+
+    @Test
+    public void testUsersCannotCrudOtherUsersRecords() {
+        login("john");
+        Record record = from(postRecord("2016/07/31 10:00:00", 1800, 5000), Record.class);
+
+        login("mat");
+        assertGetWithStatus(record.id.getUri(), 404);
+        assertPatchWithStatus(record.id.getUri(), "{distance: 1000}", 403);
+        assertEquals(0, fromList(get("/records"), Record.class).size());
+    }
+
+    // admins can update/see other users records
+
+    private String postRecord(String datetime, int time, int distance) {
+        return post("/records", String.format("{timestamp: %d, time: %d, distance: %d}", timestamp(datetime), time, distance));
+    }
 }
