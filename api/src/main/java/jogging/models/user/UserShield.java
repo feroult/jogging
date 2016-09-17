@@ -5,17 +5,19 @@ import io.yawp.repository.IdRef;
 import io.yawp.repository.shields.Shield;
 import jogging.auth.AuthUtils;
 
+import static jogging.models.user.UserFacades.*;
+
 public class UserShield extends Shield<User> {
 
     @Override
     public void defaults() {
-        allow(isManagerUser()).facade(UserFacade.class);
+        allow(isManagerUser()).facade(Manager.class);
     }
 
     @Override
     public void update(IdRef<User> id, User user) {
-        allow(isManagerUser()).facade(UserFacade.class);
-        allow(id.equals(AuthUtils.getCurrentUserId())).facade(UserFacade.class);
+        allow(isManagerUser()).facade(Manager.class);
+        allow(id.equals(AuthUtils.getCurrentUserId())).facade(Regular.class);
     }
 
     @Override

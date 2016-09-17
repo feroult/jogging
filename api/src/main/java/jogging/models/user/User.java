@@ -5,7 +5,7 @@ import io.yawp.repository.annotations.Endpoint;
 import io.yawp.repository.annotations.Id;
 
 @Endpoint(path = "/users")
-public class User implements UserFacade {
+public class User implements UserFacades.Regular, UserFacades.Manager {
 
     @Id
     IdRef<User> id;

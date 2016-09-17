@@ -92,5 +92,26 @@ public class UserTest extends EndpointTestCase {
         assertDeleteWithStatus("/users/john", 200);
     }
 
+    @Test
+    public void testManagerCanUpdateOtherUsersRole() {
+        post("/users/sign-up", JOHN_SIGNUP_JSON);
+
+        login("paul", Role.MANAGER);
+        patch("/users/john", "{role: 'MANAGER'}");
+
+        User john = from(get("/users/john"), User.class);
+        assertEquals(Role.MANAGER, john.role);
+    }
+
+    @Test
+    public void testManagerCannotUpdateTheirOwnRole() {
+        login("paul", Role.MANAGER);
+
+        patch("/users/paul", "{role: 'ADMIN'}");
+
+        User paul = from(get("/users/paul"), User.class);
+        assertEquals(Role.MANAGER, paul.role);
+    }
+
     // test admins
 }
