@@ -77,7 +77,7 @@ export default class Navigation extends Component {
                 ref={(ref) => this.drawer = ref}
                 type="overlay"
                 content={menu}
-                //disabled={!this.session.isUserLoggedIn}
+                disabled={!this.session.isUserLoggedIn}
                 acceptDoubleTap
                 styles={drawerStyles}
                 captureGestures={false}
