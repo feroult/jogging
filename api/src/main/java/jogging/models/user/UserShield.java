@@ -1,5 +1,6 @@
 package jogging.models.user;
 
+import io.yawp.commons.http.annotation.GET;
 import io.yawp.commons.http.annotation.POST;
 import io.yawp.repository.IdRef;
 import io.yawp.repository.shields.Shield;
@@ -38,6 +39,11 @@ public class UserShield extends Shield<User> {
     @POST
     public void signUp(User user) {
         allow();
+    }
+
+    @GET
+    public void me() {
+        allow().facade(Regular.class);
     }
 
     private boolean isManager() {

@@ -64,10 +64,10 @@ public class User implements UserFacades.Regular, UserFacades.Manager, UserFacad
     }
 
     public boolean isManager() {
-        return role.equals(Role.MANAGER);
+        return role != null && role.equals(Role.MANAGER);
     }
 
     public boolean isAdmin() {
-        return role.equals(Role.ADMIN);
+        return role != null && role.equals(Role.ADMIN);
     }
 }
