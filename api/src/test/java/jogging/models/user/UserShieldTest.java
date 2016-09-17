@@ -1,29 +1,12 @@
 package jogging.models.user;
 
-import jogging.utils.EndpointTestCase;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class UserTest extends EndpointTestCase {
-
-    public static final String JOHN_SIGNUP_JSON = "{username: 'john', password: 'pass', name: 'john'}";
-
-    @Test
-    public void testUserSignUp() {
-        assertPostWithStatus("/users/sign-up", JOHN_SIGNUP_JSON, 200);
-        assertPostWithStatus("/users/sign-up", JOHN_SIGNUP_JSON, 409);
-    }
-
-    @Test
-    public void testUserSignIn() {
-        post("/users/sign-up", JOHN_SIGNUP_JSON);
-
-        assertPostWithStatus("/users/sign-in", "{username: 'john', password: 'pass'}", 200);
-        assertPostWithStatus("/users/sign-in", "{username: 'john', password: 'wrong-pass'}", 400);
-    }
-
+public class UserShieldTest extends UserTestCase {
+    
     @Test
     public void testUsersCanUpdateTheirBasicInfo() {
         login("john");
@@ -139,5 +122,5 @@ public class UserTest extends EndpointTestCase {
         User paul = from(get("/users/paul"), User.class);
         assertEquals(role, paul.role);
     }
-    
+
 }
