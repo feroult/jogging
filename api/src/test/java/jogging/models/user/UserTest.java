@@ -3,6 +3,9 @@ package jogging.models.user;
 import jogging.utils.EndpointTestCase;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 public class UserTest extends EndpointTestCase {
 
     public static final String JOHN_SIGNUP_JSON = "{username: 'john', password: 'pass', name: 'john'}";
@@ -25,7 +28,7 @@ public class UserTest extends EndpointTestCase {
     public void testUsersCanUpdateThemselves() {
         login("john");
 
-        assertPutWithStatus("/users/john", "{username: 'john', name: 'john  lee', password: 'new-pass'}", 200);
+        assertPutWithStatus("/users/john", "{username: 'john', name: 'john lee', password: 'new-pass'}", 200);
         assertPatchWithStatus("/users/john", "{name: 'john lee'}", 200);
     }
 
@@ -42,6 +45,30 @@ public class UserTest extends EndpointTestCase {
     }
 
     @Test
+    public void testUserCannotChangeUsername() {
+        login("john");
+
+        put("/users/john", "{username: 'john-lee', name: 'john lee', password: 'new-pass'}");
+        patch("/users/john", "{username: 'john-lee'}");
+
+        User john = id(User.class, "john").fetch();
+        assertEquals("john", john.username);
+        assertEquals("john lee", john.name);
+        assertEquals("new-pass", john.password);
+    }
+
+    @Test
+    public void testPasswordIsNotVisible() {
+        login("john");
+        patch("/users/john", "{password: 'new-pass'}");
+
+        login("paul", Role.MANAGER);
+        String json = get("/users/john");
+
+        assertTrue(json.indexOf("password") == -1);
+    }
+
+    @Test
     public void testRegularUsersCantManageUsers() {
         post("/users/sign-up", JOHN_SIGNUP_JSON);
 
@@ -52,7 +79,6 @@ public class UserTest extends EndpointTestCase {
         assertPatchWithStatus("/users/john", "{}", 404);
         assertDeleteWithStatus("/users/john", 404);
     }
-
 
     @Test
     public void testManagersCanManageUsers() {
@@ -67,5 +93,4 @@ public class UserTest extends EndpointTestCase {
     }
 
     // test admins
-    // test users can't change username
 }

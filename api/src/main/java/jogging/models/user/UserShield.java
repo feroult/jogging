@@ -9,13 +9,13 @@ public class UserShield extends Shield<User> {
 
     @Override
     public void defaults() {
-        allow(isManagerUser());
+        allow(isManagerUser()).facade(UserFacade.class);
     }
 
     @Override
     public void update(IdRef<User> id, User user) {
-        allow(isManagerUser());
-        allow(id.equals(AuthUtils.getCurrentUserId()));
+        allow(isManagerUser()).facade(UserFacade.class);
+        allow(id.equals(AuthUtils.getCurrentUserId())).facade(UserFacade.class);
     }
 
     @Override

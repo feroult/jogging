@@ -5,7 +5,7 @@ import io.yawp.repository.annotations.Endpoint;
 import io.yawp.repository.annotations.Id;
 
 @Endpoint(path = "/users")
-public class User {
+public class User implements UserFacade {
 
     @Id
     IdRef<User> id;
@@ -22,11 +22,49 @@ public class User {
         return id;
     }
 
+    public void setId(IdRef<User> id) {
+        this.id = id;
+    }
+
+    @Override
     public String getUsername() {
         return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public boolean isManager() {
         return role.equals(Role.MANAGER);
     }
+
 }
