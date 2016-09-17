@@ -15,6 +15,8 @@ public class SecurityFilter implements Filter {
 
     private static final String API_URI = "/api/";
 
+    private static final String SIGNUP_URI = "/api/users/sign-up";
+
     private static final String SIGNIN_URI = "/api/users/sign-in";
 
     private static final int BEARER_LENGTH = "Bearer".length();
@@ -25,6 +27,7 @@ public class SecurityFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
+        publicUris.add(SIGNUP_URI);
         publicUris.add(SIGNIN_URI);
     }
 
