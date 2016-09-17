@@ -64,6 +64,13 @@ public class RecordShieldTest extends RecordTestCase {
         assertDeleteWithStatus(record.id.getUri(), 200);
     }
 
-    // only admins can request weekly reports for other users
+    @Test
+    public void testOnlyAdminsCanRequestWeeklyReportsForSpecificUsers() {
+        login("john");
+        assertGetWithStatus("/records/weekly-report", params("user", "paul"), 404);
+
+        login("mat", Role.ADMIN);
+        assertGetWithStatus("/records/weekly-report", params("user", "paul"), 200);
+    }
 
 }

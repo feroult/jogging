@@ -14,7 +14,7 @@ public class RecordShield extends Shield<Record> {
 
     @GET
     public void weeklyReport() {
-        allow();
+        allow(!requestContext.hasParam("user") || isAdmin());
     }
 
     private boolean isAdmin() {
