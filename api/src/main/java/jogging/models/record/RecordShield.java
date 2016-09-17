@@ -8,6 +8,7 @@ public class RecordShield extends Shield<Record> {
 
     @Override
     public void defaults() {
+        allow(isAdmin());
         allow().where("userId", "=", AuthUtils.getCurrentUserId());
     }
 
@@ -15,5 +16,9 @@ public class RecordShield extends Shield<Record> {
     public void weeklyReport() {
         allow();
     }
-    
+
+    private boolean isAdmin() {
+        return AuthUtils.getCurrentUser().isAdmin();
+    }
+
 }

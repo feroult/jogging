@@ -1,6 +1,7 @@
 package jogging.models.record;
 
 import io.yawp.commons.utils.JsonUtils;
+import jogging.models.user.Role;
 import jogging.utils.EndpointTestCase;
 import org.junit.Test;
 
@@ -83,6 +84,8 @@ public class RecordTest extends EndpointTestCase {
         patch(record.id.getUri(), "{distance: 1000}");
         Record patchedRecord = record.id.fetch();
         assertEquals(1000, patchedRecord.distance);
+
+        assertDeleteWithStatus(record.id.getUri(), 200);
     }
 
     @Test
@@ -90,13 +93,31 @@ public class RecordTest extends EndpointTestCase {
         login("john");
         Record record = from(postRecord("2016/07/31 10:00:00", 1800, 5000), Record.class);
 
-        login("mat");
+        login("pter");
         assertGetWithStatus(record.id.getUri(), 404);
         assertPatchWithStatus(record.id.getUri(), "{distance: 1000}", 403);
         assertEquals(0, fromList(get("/records"), Record.class).size());
+        assertDeleteWithStatus(record.id.getUri(), 403);
     }
 
-    // admins can update/see other users records
+    @Test
+    public void testAdminsCanCrudOtherUsersRecords() {
+        login("john");
+        Record record = from(postRecord("2016/07/31 10:00:00", 1800, 5000), Record.class);
+
+        login("mat", Role.ADMIN);
+
+        assertGetWithStatus(record.id.getUri(), 200);
+        assertEquals(1, fromList(get("/records"), Record.class).size());
+
+        patch(record.id.getUri(), "{distance: 1000}");
+        Record patchedRecord = record.id.fetch();
+        assertEquals(1000, patchedRecord.distance);
+
+        assertDeleteWithStatus(record.id.getUri(), 200);
+    }
+
+    // admins can access other users weekfly report
 
     private String postRecord(String datetime, int time, int distance) {
         return post("/records", String.format("{timestamp: %d, time: %d, distance: %d}", timestamp(datetime), time, distance));
