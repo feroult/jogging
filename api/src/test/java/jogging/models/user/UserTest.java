@@ -139,4 +139,5 @@ public class UserTest extends EndpointTestCase {
         User paul = from(get("/users/paul"), User.class);
         assertEquals(role, paul.role);
     }
+    
 }
