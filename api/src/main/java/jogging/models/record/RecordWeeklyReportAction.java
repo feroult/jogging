@@ -14,8 +14,8 @@ public class RecordWeeklyReportAction extends Action<Record> {
     private SimpleDateFormat weekFormat = new SimpleDateFormat("yyyy/MM/dd");
 
     @GET
-    public Map<String, WeeklyReport> weeklyReport() {
-        List<Record> records = getRecords();
+    public Map<String, WeeklyReport> weeklyReport(Map<String, String> params) {
+        List<Record> records = getRecords(params.get("user"));
 
         Map<String, WeeklyReport> reports = new TreeMap<>();
 
@@ -37,8 +37,8 @@ public class RecordWeeklyReportAction extends Action<Record> {
         wr.addRecord(record);
     }
 
-    private List<Record> getRecords() {
-        IdRef<User> userId = AuthUtils.getCurrentUserId();
+    private List<Record> getRecords(String user) {
+        IdRef<User> userId = user == null ? AuthUtils.getCurrentUserId() : id(User.class, user);
         return yawp(Record.class).where("userId", "=", userId).list();
     }
 

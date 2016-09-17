@@ -41,6 +41,17 @@ public class RecordWeeklyReportActionTest extends RecordTestCase {
         assertWeeklyReport(wrs, "2016/07/31", 5000 / (double) 1800, 5000);
     }
 
+    @Test
+    public void testWeeklyReportForASpecificUser() {
+        login("john");
+        postRecord("2016/07/31 10:00:00", 1800, 5000);
+
+        login("paul");
+        Map<String, WeeklyReport> wrs = JsonUtils.fromMap(yawp, get("/records/weekly-report", params("user", "john")), String.class, WeeklyReport.class);
+
+        assertWeeklyReport(wrs, "2016/07/31", 5000 / (double) 1800, 5000);
+    }
+
     // request a weekly report for a specific user
 
     private void assertWeeklyReport(Map<String, WeeklyReport> wrs, String week, double expectedAvgSpeed, int expectedAvgDistance) {

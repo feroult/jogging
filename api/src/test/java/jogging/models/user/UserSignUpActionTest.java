@@ -9,7 +9,7 @@ public class UserSignUpActionTest extends UserTestCase {
     @Test
     public void testUserSignUp() {
         assertPostWithStatus("/users/sign-up", JOHN_SIGNUP_JSON, 200);
-        
+
         assertEquals("john", id(User.class, "john").fetch().name);
     }
 
