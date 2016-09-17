@@ -8,23 +8,33 @@ import jogging.auth.AuthUtils;
 public class UserShield extends Shield<User> {
 
     @Override
-    public void always() {
-        allow(AuthUtils.isUserLoggedIn() && AuthUtils.getCurrentUser().role.equals(Role.MANAGER));
+    public void defaults() {
+        allow(isManagerUser());
     }
 
     @Override
     public void update(IdRef<User> id, User user) {
+        allow(isManagerUser());
         allow(id.equals(AuthUtils.getCurrentUserId()));
+    }
+
+    @Override
+    public void destroy(IdRef<User> id) {
+        allow(isManagerUser() && !id.equals(AuthUtils.getCurrentUserId()));
     }
 
     @POST
     public void signIn(UserSignInAction.SignInInfo info) {
-        allow(true);
+        allow();
     }
 
     @POST
     public void signUp(User user) {
-        allow(true);
+        allow();
+    }
+
+    private boolean isManagerUser() {
+        return AuthUtils.isUserLoggedIn() && AuthUtils.getCurrentUser().isManager();
     }
 
 }

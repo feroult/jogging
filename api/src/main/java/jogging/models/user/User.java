@@ -25,4 +25,8 @@ public class User {
     public String getUsername() {
         return username;
     }
+
+    public boolean isManager() {
+        return role.equals(Role.MANAGER);
+    }
 }
