@@ -25,7 +25,7 @@ public class UserTest extends EndpointTestCase {
     }
 
     @Test
-    public void testUsersCanUpdateThemselves() {
+    public void testUsersCanUpdateTheirBasicInfo() {
         login("john");
 
         assertPutWithStatus("/users/john", "{username: 'john', name: 'john lee', password: 'new-pass'}", 200);
@@ -69,7 +69,7 @@ public class UserTest extends EndpointTestCase {
     }
 
     @Test
-    public void testRegularUsersCantManageUsers() {
+    public void testRegularUsersCannotManageUsers() {
         post("/users/sign-up", JOHN_SIGNUP_JSON);
 
         login("peter");
@@ -93,7 +93,7 @@ public class UserTest extends EndpointTestCase {
     }
 
     @Test
-    public void testManagerCanUpdateOtherUsersRole() {
+    public void testManagersCanUpdateOtherUsersRole() {
         post("/users/sign-up", JOHN_SIGNUP_JSON);
 
         login("paul", Role.MANAGER);
@@ -104,7 +104,7 @@ public class UserTest extends EndpointTestCase {
     }
 
     @Test
-    public void testManagerCannotUpdateTheirOwnRole() {
+    public void testManagersCannotUpdateTheirOwnRole() {
         login("paul", Role.MANAGER);
 
         patch("/users/paul", "{role: 'ADMIN'}");
