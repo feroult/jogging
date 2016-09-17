@@ -10,7 +10,8 @@ import {
     StyleSheet,
     Text,
     Image,
-    View
+    View,
+    TouchableHighlight
 } from 'react-native';
 
 
@@ -51,7 +52,7 @@ var formOptions = {
     fields: {
         username: {
             autoCapitalize: 'none',
-            placeholder: 'User',
+            placeholder: 'Username',
             template: textbox
         },
         password: {
@@ -135,11 +136,16 @@ export default class SignIn extends Component {
     }
 
     renderSignIn() {
-        return (<Form
-            ref="form"
-            type={SignInFormType}
-            options={formOptions}
-        />)
+        return (<View>
+            <Form
+                ref="form"
+                type={SignInFormType}
+                options={formOptions}
+            />
+            <TouchableHighlight style={styles.signInButton}>
+                <Text style={styles.buttonText}>Sign In</Text>
+            </TouchableHighlight>
+        </View>)
     }
 
     renderWaiting() {
@@ -185,5 +191,14 @@ var styles = StyleSheet.create({
         color: '#555'
 
     },
-    login: {}
+    login: {},
+    signInButton: {
+        width: 140,
+        height: 50,
+        padding: 10,
+        borderRadius: 10,
+        backgroundColor: '#3C91E6',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
 });
