@@ -37,47 +37,33 @@ export default class Menu extends Component {
         var self = this;
         return (
             <ScrollView scrollsToTop={false} style={styles.menu} contentContainerStyle={styles.content}>
-                <View style={styles.avatarContainer}>
-                    <Image
-                        style={styles.avatar}
-                        source={{ uri }}/>
-
-                </View>
-
                 <View style={styles.shortcutsContainer}>
                     <Icon style={styles.shortcut} name="home" size={25}
-                          onPress={this.action(() => Actions.events())}
+                          onPress={() => alert('not implemented')}
                     />
                     <Icon style={styles.shortcut} name="log-out" size={25}
-                          onPress={this.action(() => Actions.login())}
+                          onPress={() => alert('not implemented')}
                     />
                 </View>
 
-                <TouchableHighlight onPress={this.action(() => Actions.events())}>
+                <TouchableHighlight onPress={() => alert('not implemented')}>
                     <View style={styles.itemContainer}>
-                        <Icon style={styles.menuIcon} name="list" size={30}/>
-                        <Text style={styles.item}>Find Events</Text>
+                        <Icon style={styles.menuIcon} name="stopwatch" size={30}/>
+                        <Text style={styles.item}>Times</Text>
                     </View>
                 </TouchableHighlight>
 
                 <TouchableHighlight onPress={() => alert('not implemented')}>
                     <View style={styles.itemContainer}>
-                        <Icon style={styles.menuIcon} name="heart" size={30}/>
-                        <Text style={styles.item}>I am going</Text>
-                    </View>
-                </TouchableHighlight>
-
-                <TouchableHighlight onPress={this.action(() => Actions.eventNew())}>
-                    <View style={styles.itemContainer}>
-                        <Icon style={styles.menuIcon} name="circle-with-plus" size={30}/>
-                        <Text style={styles.item}>New Event</Text>
+                        <Icon style={styles.menuIcon} name="users" size={30}/>
+                        <Text style={styles.item}>Users</Text>
                     </View>
                 </TouchableHighlight>
 
                 <TouchableHighlight onPress={() => alert('not implemented')}>
                     <View style={styles.itemContainer}>
-                        <Icon style={styles.menuIcon} name="edit" size={30}/>
-                        <Text style={styles.item}>Edit Events</Text>
+                        <Icon style={styles.menuIcon} name="pie-chart" size={30}/>
+                        <Text style={styles.item}>Weekly Report</Text>
                     </View>
                 </TouchableHighlight>
             </ScrollView>
@@ -91,30 +77,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#342E37',
     },
     content: {},
-    avatarContainer: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 15,
-        marginBottom: 5,
-
-    },
-    avatar: {
-        //borderWidth: 1,
-        //borderColor: '#FAFFFD',
-        marginBottom: 10,
-        width: 70,
-        height: 70,
-        borderRadius: 35,
-    },
     shortcutsContainer: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
         backgroundColor: '#FA824C',
         padding: 10,
-        //paddingTop: 12
+        paddingTop: 30,
     },
     shortcut: {
         flex: 1,
