@@ -21,10 +21,53 @@ import Orientation from 'react-native-orientation';
 import AuthUtils from '../utils/auth-utils'
 import { connect } from '../utils/mobx/connect'
 
+// Form Style
+var formStylesheet = _.cloneDeep(require('../utils/form/stylesheet'));
+
+_.merge(formStylesheet, {
+    textbox: {
+        normal: {width: 200},
+        error: {width: 200},
+        notEditable: {width: 200},
+    }
+});
+
+
+// Form
+import _ from 'lodash';
+import t from 'tcomb-form-native';
+import textbox from  '../utils/form/textbox'
+var Form = t.form.Form;
+
+
+var SignInFormType = t.struct({
+    username: t.String,
+    password: t.String
+});
+
+var formOptions = {
+    stylesheet: formStylesheet,
+    auto: 'none',
+    fields: {
+        username: {
+            autoCapitalize: 'none',
+            placeholder: 'User',
+            template: textbox
+        },
+        password: {
+            autoCapitalize: 'none',
+            password: true,
+            secureTextEntry: true,
+            placeholder: 'Password',
+            template: textbox
+        }
+    }
+};
+
 const window = Dimensions.get('window');
 
 @connect
-export default class Login extends Component {
+export default class SignIn extends Component {
 
     constructor(props, context) {
         super(props);
@@ -74,6 +117,7 @@ export default class Login extends Component {
                     resizeMode={Image.resizeMode.cover}>
                     { this.renderJoggingLogo() }
                     <View style={styles.login}>
+                        { !this.state.waiting ? this.renderSignIn() : null}
                         { this.state.waiting ? this.renderWaiting() : null }
                     </View>
                 </Image>
@@ -88,6 +132,14 @@ export default class Login extends Component {
                 <Text style={styles.subTitle}>Take Your Time</Text>
             </View>
         );
+    }
+
+    renderSignIn() {
+        return (<Form
+            ref="form"
+            type={SignInFormType}
+            options={formOptions}
+        />)
     }
 
     renderWaiting() {
@@ -110,7 +162,6 @@ var styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         width: window.width,
-
     },
     logo: {
         marginTop: 200,
@@ -134,10 +185,5 @@ var styles = StyleSheet.create({
         color: '#555'
 
     },
-    login: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'flex-end',
-        bottom: 40,
-    }
+    login: {}
 });

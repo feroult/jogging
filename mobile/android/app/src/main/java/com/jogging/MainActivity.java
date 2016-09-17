@@ -1,6 +1,7 @@
 package com.jogging;
 
 import com.facebook.react.ReactActivity;
+import com.react.rnspinkit.RNSpinkitPackage;
 import com.github.yamill.orientation.OrientationPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 
