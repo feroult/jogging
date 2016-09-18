@@ -18,64 +18,33 @@ import Orientation from 'react-native-orientation';
 import AuthUtils from '../utils/auth-utils'
 import { connect } from '../utils/mobx/connect'
 
-// Form Style
-var formStylesheet = _.cloneDeep(require('../utils/form/stylesheet'));
-
-var textboxStyle = {
-    width: 200,
-    height: 40,
-}
-
-_.merge(formStylesheet, {
-    textbox: {
-        normal: textboxStyle,
-        error: textboxStyle,
-        notEditable: textboxStyle,
-    }
-});
-
-
 // Form
-import _ from 'lodash';
 import t from 'tcomb-form-native';
-import textbox from  '../utils/form/textbox'
 var Form = t.form.Form;
 
+var passwordMatch = true;
+var Password = t.refinement(t.String, function (s) {
+    return passwordMatch;
+});
 
 var SignInFormType = t.struct({
     name: t.String,
     username: t.String,
-    password: t.String,
-    verifyPassword: t.String
+    password: Password,
+    verifyPassword: Password
 });
 
 var formOptions = {
-    stylesheet: formStylesheet,
-    auto: 'none',
     fields: {
-        name: {
-            autoCapitalize: 'none',
-            placeholder: 'Name',
-            template: textbox
-        },
-        username: {
-            autoCapitalize: 'none',
-            placeholder: 'Username',
-            template: textbox
-        },
         password: {
             autoCapitalize: 'none',
             password: true,
             secureTextEntry: true,
-            placeholder: 'Password',
-            template: textbox
         },
         verifyPassword: {
             autoCapitalize: 'none',
             password: true,
             secureTextEntry: true,
-            placeholder: 'Verify Password',
-            template: textbox
         }
     }
 };
@@ -93,33 +62,17 @@ export default class SignIn extends Component {
         this.session = context.store.session;
     }
 
-    componentDidMount() {
-        Orientation.lockToPortrait();
-    }
-
-    onLoginFinished(error, result) {
-        if (error) {
-            alert("Login error = " + result.error);
-            return;
-        }
-
-        if (result.isCancelled) {
-            alert('Login canceled.');
-            return;
-        }
-
-        this.setState({
-            waiting: true
-        });
-
-        AuthUtils.init(() => {
-            this.session.login();
-            Actions.events();
-        });
-    }
-
     onLogoutFinished() {
         this.session.logout();
+    }
+
+    signUp() {
+        var info = this.refs.form.getValue();
+        console.log('info', info);
+    }
+
+    onChange(value) {
+        passwordMatch = value.password === value.verifyPassword;
     }
 
     render() {
@@ -131,8 +84,9 @@ export default class SignIn extends Component {
                     ref="form"
                     type={SignInFormType}
                     options={formOptions}
+                    onChange={this.onChange}
                 />
-                <TouchableHighlight style={styles.signInButton}>
+                <TouchableHighlight style={styles.signInButton} onPress={this.signUp.bind(this)}>
                     <Text style={styles.buttonText}>Sign Up</Text>
                 </TouchableHighlight>
             </View>
@@ -144,42 +98,12 @@ export default class SignIn extends Component {
 var styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    bg: {
-        flex: 1,
-        //resizeMode: 'contain', // or 'stretch'
-        flexDirection: 'column',
-        alignItems: 'center',
+        marginTop: 60,
+        padding: 20,
         width: window.width,
     },
-    logo: {
-        marginTop: 200,
-        backgroundColor: 'transparent'
-    },
-    jogging: {
-        textAlign: 'center',
-        fontSize: 70,
-        fontWeight: 'bold',
-        marginBottom: 10,
-        padding: 4,
-        color: '#555'
-    },
-    gg: {
-        color: '#77cc33'
-    },
-    subTitle: {
-        fontSize: 20,
-        textAlign: 'center',
-        marginBottom: 30,
-        color: '#555'
-
-    },
-    login: {},
     signInButton: {
-        width: 200,
+        //width: 200,
         height: 50,
         padding: 10,
         borderRadius: 10,
