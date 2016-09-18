@@ -43,7 +43,7 @@ class Pages extends Component {
             <Router>
                 <Scene key="root" navigationBarStyle={styles.navBar} titleStyle={styles.navBarTitle}>
                     <Scene key="signIn" component={SignIn} hideNavBar={true} type="reset" initial={true}/>
-                    <Scene key="signUp" component={SignUp} hideNavBar={false} />
+                    <Scene key="signUp" component={SignUp} hideNavBar={false} title="New Account" />
                 </Scene>
             </Router>
         );
@@ -126,9 +126,9 @@ var styles = StyleSheet.create({
     },
     navBarTitle: {
         //fontFamily: 'Roboto-Regular',
-        top: (Platform.OS === 'ios') ? 16 : 3,
-        textAlign: 'left',
-        marginLeft: 48,
+        top: (Platform.OS === 'ios') ? 18 : 3,
+        textAlign: 'center',
+        //marginLeft: 48,
         fontSize: 18,
         color: 'white',
     }

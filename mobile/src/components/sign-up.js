@@ -43,14 +43,21 @@ var Form = t.form.Form;
 
 
 var SignInFormType = t.struct({
+    name: t.String,
     username: t.String,
-    password: t.String
+    password: t.String,
+    verifyPassword: t.String
 });
 
 var formOptions = {
     stylesheet: formStylesheet,
     auto: 'none',
     fields: {
+        name: {
+            autoCapitalize: 'none',
+            placeholder: 'Name',
+            template: textbox
+        },
         username: {
             autoCapitalize: 'none',
             placeholder: 'Username',
@@ -61,6 +68,13 @@ var formOptions = {
             password: true,
             secureTextEntry: true,
             placeholder: 'Password',
+            template: textbox
+        },
+        verifyPassword: {
+            autoCapitalize: 'none',
+            password: true,
+            secureTextEntry: true,
+            placeholder: 'Verify Password',
             template: textbox
         }
     }
@@ -119,7 +133,7 @@ export default class SignIn extends Component {
                     options={formOptions}
                 />
                 <TouchableHighlight style={styles.signInButton}>
-                    <Text style={styles.buttonText}>Sign In</Text>
+                    <Text style={styles.buttonText}>Sign Up</Text>
                 </TouchableHighlight>
             </View>
         );
