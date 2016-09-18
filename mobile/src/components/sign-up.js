@@ -73,7 +73,7 @@ export default class SignIn extends Component {
         if (info) {
             this.session.signUp(info).then(() => {
                 userExists = false;
-                console.log('here');
+                Actions.signIn();
             }).catch((result) => {
                 if (result.status == 409) {
                     userExists = true;
