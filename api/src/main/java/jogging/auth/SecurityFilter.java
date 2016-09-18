@@ -69,7 +69,7 @@ public class SecurityFilter implements Filter {
     }
 
     private boolean isProtected(HttpServletRequest req) {
-        return publicUris.contains(req.getRequestURI());
+        return !publicUris.contains(req.getRequestURI());
     }
 
 }

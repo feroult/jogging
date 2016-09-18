@@ -22,6 +22,11 @@ import { connect } from '../utils/mobx/connect'
 import t from 'tcomb-form-native';
 var Form = t.form.Form;
 
+var userExists = false;
+var Username = t.refinement(t.String, function (s) {
+    return !userExists;
+});
+
 var passwordMatch = true;
 var Password = t.refinement(t.String, function (s) {
     return passwordMatch;
@@ -29,13 +34,16 @@ var Password = t.refinement(t.String, function (s) {
 
 var SignInFormType = t.struct({
     name: t.String,
-    username: t.String,
+    username: Username,
     password: Password,
     verifyPassword: Password
 });
 
 var formOptions = {
     fields: {
+        username: {
+            autoCapitalize: 'none',
+        },
         password: {
             autoCapitalize: 'none',
             password: true,
@@ -56,23 +64,30 @@ export default class SignIn extends Component {
 
     constructor(props, context) {
         super(props);
-        this.state = {
-            waiting: false
-        };
         this.session = context.store.session;
     }
 
-    onLogoutFinished() {
-        this.session.logout();
-    }
-
     signUp() {
-        var info = this.refs.form.getValue();
-        console.log('info', info);
+        var form = this.refs.form;
+        var info = form.getValue();
+        if (info) {
+            this.session.signUp(info).then(() => {
+                userExists = false;
+                console.log('here');
+            }).catch((result) => {
+                if (result.status == 409) {
+                    userExists = true;
+                    form.validate();
+                    return;
+                }
+                throw 'error: ' + result;
+            });
+        }
     }
 
     onChange(value) {
         passwordMatch = value.password === value.verifyPassword;
+        userExists = false;
     }
 
     render() {
