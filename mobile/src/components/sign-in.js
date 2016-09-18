@@ -145,6 +145,9 @@ export default class SignIn extends Component {
             <TouchableHighlight style={styles.signInButton}>
                 <Text style={styles.buttonText}>Sign In</Text>
             </TouchableHighlight>
+            <TouchableHighlight style={styles.signUpButton}>
+                <Text style={styles.buttonText}>New Account</Text>
+            </TouchableHighlight>
         </View>)
     }
 
@@ -193,12 +196,30 @@ var styles = StyleSheet.create({
     },
     login: {},
     signInButton: {
-        width: 140,
+        width: 200,
         height: 50,
         padding: 10,
         borderRadius: 10,
+        borderColor: '#444',
+        borderWidth: 1,
         backgroundColor: '#3C91E6',
         alignItems: 'center',
         justifyContent: 'center'
     },
+    signUpButton: {
+        marginTop: 200,
+        width: 200,
+        height: 50,
+        padding: 10,
+        borderRadius: 10,
+        borderColor: '#444',
+        borderWidth: 1,
+        backgroundColor: '#3Caa44',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    buttonText: {
+        fontWeight: 'bold',
+        color: 'white',
+    }
 });

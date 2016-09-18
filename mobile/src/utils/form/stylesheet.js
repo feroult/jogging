@@ -29,13 +29,13 @@ var stylesheet = Object.freeze({
             borderWidth: 1,
             borderColor: BORDER_COLOR,
             borderRadius: 5,
-            shadowColor: "black",
-            shadowOpacity: 0.5,
-            shadowRadius: 2,
-            shadowOffset: {
-                height: 1,
-                width: 1
-            }
+            //shadowColor: "black",
+            //shadowOpacity: 0.5,
+            //shadowRadius: 2,
+            //shadowOffset: {
+            //    height: 1,
+            //    width: 1
+            //}
         },
         error: {
             backgroundColor: BACKGROUND_COLOR,

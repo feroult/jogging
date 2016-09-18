@@ -34,7 +34,7 @@ function textbox(locals) {
     return (
         <View style={formGroupStyle}>
             {label}
-            <View style={containerStyle} elevation={4}>
+            <View style={containerStyle} elevation={0}>
                 <TextInput
                     accessibilityLabel={locals.label}
                     ref="input"
