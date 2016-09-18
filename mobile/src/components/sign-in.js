@@ -25,11 +25,16 @@ import { connect } from '../utils/mobx/connect'
 // Form Style
 var formStylesheet = _.cloneDeep(require('../utils/form/stylesheet'));
 
+var textboxStyle ={
+    width: 200,
+    height: 40,
+}
+
 _.merge(formStylesheet, {
     textbox: {
-        normal: {width: 200},
-        error: {width: 200},
-        notEditable: {width: 200},
+        normal: textboxStyle,
+        error: textboxStyle,
+        notEditable: textboxStyle,
     }
 });
 
