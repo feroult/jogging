@@ -113,50 +113,18 @@ export default class SignIn extends Component {
 
         return (
             <View style={styles.container}>
-                <Image
-                    source={require('../../assets/bg.jpg')}
-                    style={styles.bg}
-                    resizeMode={Image.resizeMode.cover}>
-                    { this.renderJoggingLogo() }
-                    <View style={styles.login}>
-                        { !this.state.waiting ? this.renderSignIn() : null}
-                        { this.state.waiting ? this.renderWaiting() : null }
-                    </View>
-                </Image>
+                <Form
+                    ref="form"
+                    type={SignInFormType}
+                    options={formOptions}
+                />
+                <TouchableHighlight style={styles.signInButton}>
+                    <Text style={styles.buttonText}>Sign In</Text>
+                </TouchableHighlight>
             </View>
         );
     }
 
-    renderJoggingLogo() {
-        return (
-            <View style={styles.logo}>
-                <Text style={styles.jogging}>Jo<Text style={styles.gg}>gg</Text>ing</Text>
-                <Text style={styles.subTitle}>Take Your Time</Text>
-            </View>
-        );
-    }
-
-    renderSignIn() {
-        return (<View>
-            <Form
-                ref="form"
-                type={SignInFormType}
-                options={formOptions}
-            />
-            <TouchableHighlight style={styles.signInButton}>
-                <Text style={styles.buttonText}>Sign In</Text>
-            </TouchableHighlight>
-            <TouchableHighlight style={styles.signUpButton} onPress={ () => Actions.signUp() }>
-                <Text style={styles.buttonText}>New Account</Text>
-            </TouchableHighlight>
-        </View>)
-    }
-
-    renderWaiting() {
-        return (
-            <Spinner type={'Wave'}/>
-        );
-    }
 }
 
 var styles = StyleSheet.create({
@@ -204,18 +172,6 @@ var styles = StyleSheet.create({
         borderColor: '#444',
         borderWidth: 1,
         backgroundColor: '#3C91E6',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    signUpButton: {
-        marginTop: 200,
-        width: 200,
-        height: 50,
-        padding: 10,
-        borderRadius: 10,
-        borderColor: '#444',
-        borderWidth: 1,
-        backgroundColor: '#3Caa44',
         alignItems: 'center',
         justifyContent: 'center'
     },

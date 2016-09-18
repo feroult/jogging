@@ -15,6 +15,7 @@ import { connect } from '../utils/mobx/connect';
 
 import Menu from './menu';
 import SignIn from './sign-in';
+import SignUp from './sign-up';
 
 //import UserUtils from '../utils/user-utils';
 //
@@ -41,7 +42,8 @@ class Pages extends Component {
         return (
             <Router>
                 <Scene key="root" navigationBarStyle={styles.navBar} titleStyle={styles.navBarTitle}>
-                    <Scene key="login" component={SignIn} hideNavBar={true} type="reset" initial={true}/>
+                    <Scene key="signIn" component={SignIn} hideNavBar={true} type="reset" initial={true}/>
+                    <Scene key="signUp" component={SignUp} hideNavBar={false} />
                 </Scene>
             </Router>
         );
@@ -123,7 +125,7 @@ var styles = StyleSheet.create({
         borderBottomColor: 'black',
     },
     navBarTitle: {
-        fontFamily: 'Roboto-Regular',
+        //fontFamily: 'Roboto-Regular',
         top: (Platform.OS === 'ios') ? 16 : 3,
         textAlign: 'left',
         marginLeft: 48,
