@@ -18,6 +18,7 @@ import Menu from './menu';
 import SignIn from './sign-in';
 import SignUp from './sign-up';
 import Records from './records';
+import NewRecord from './new-record';
 
 var window = Dimensions.get('window');
 
@@ -32,6 +33,10 @@ class Pages extends Component {
         this.session = context.store.session;
     }
 
+    newRecord = () => {
+        Actions.newRecord();
+    };
+
     render() {
         return (
             <Router>
@@ -43,9 +48,11 @@ class Pages extends Component {
                     <Scene key="records" component={Records} hideNavBar={false} title="Records"
                            initial={this.session.isUserLoggedIn}
                            getRightTitle={this.addButton} rightButtonStyle={styles.rightButton}
-                           onRight={() => alert('hi')}
+                           onRight={this.newRecord}
                            drawerImage={drawerImage}
                            leftButtonIconStyle={styles.drawerButtonIcon}/>
+                    <Scene key="newRecord" component={NewRecord} hideNavBar={false} title="New Record"
+                           backButtonImage={backButtonImage} leftButtonIconStyle={styles.backButtonIcon}/>
                 </Scene>
             </Router>
         );
