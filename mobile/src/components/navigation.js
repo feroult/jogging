@@ -18,7 +18,7 @@ import Menu from './menu';
 import SignIn from './sign-in';
 import SignUp from './sign-up';
 import Records from './records';
-import NewRecord from './new-record';
+import RecordForm from './record-form';
 
 var window = Dimensions.get('window');
 
@@ -34,7 +34,7 @@ class Pages extends Component {
     }
 
     newRecord = () => {
-        Actions.newRecord();
+        Actions.recordForm();
     };
 
     render() {
@@ -51,7 +51,7 @@ class Pages extends Component {
                            onRight={this.newRecord}
                            drawerImage={drawerImage}
                            leftButtonIconStyle={styles.drawerButtonIcon}/>
-                    <Scene key="newRecord" component={NewRecord} hideNavBar={false} title="New Record"
+                    <Scene key="recordForm" component={RecordForm} hideNavBar={false} title="Record"
                            backButtonImage={backButtonImage} leftButtonIconStyle={styles.backButtonIcon}/>
                 </Scene>
             </Router>

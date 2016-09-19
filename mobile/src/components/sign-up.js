@@ -93,7 +93,7 @@ export default class SignIn extends Component {
                 throw 'error: ' + result;
             });
         }
-    }
+    };
 
     onChange = (value) => {
         this.state.value = value;
@@ -125,9 +125,11 @@ export default class SignIn extends Component {
     }
 
     renderButton() {
-        return (<TouchableHighlight style={styles.signInButton} onPress={ this.signUp }>
-            <Text style={styles.buttonText}>Sign Up</Text>
-        </TouchableHighlight>);
+        return (
+            <TouchableHighlight style={styles.signInButton} onPress={ this.signUp }>
+                <Text style={styles.buttonText}>Sign Up</Text>
+            </TouchableHighlight>
+        );
     }
 
 }
