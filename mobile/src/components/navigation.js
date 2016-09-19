@@ -28,16 +28,18 @@ class Pages extends Component {
 
     constructor(props, context) {
         super(props);
-        this.store = context.store;
+        this.session = context.store.session;
     }
 
     render() {
         return (
             <Router>
                 <Scene key="root" navigationBarStyle={styles.navBar} titleStyle={styles.navBarTitle}>
-                    <Scene key="signIn" component={SignIn} hideNavBar={true} type="reset" initial={true}/>
+                    <Scene key="signIn" component={SignIn} hideNavBar={true} type="reset"
+                           initial={!this.session.isUserLoggedIn}/>
                     <Scene key="signUp" component={SignUp} hideNavBar={false} title="New Account"/>
-                    <Scene key="records" component={Records} hideNavBar={false} title="Records" drawerImage={drawerImage} />
+                    <Scene key="records" component={Records} hideNavBar={false} title="Records"
+                           drawerImage={drawerImage} initial={this.session.isUserLoggedIn}/>
                 </Scene>
             </Router>
         );
@@ -61,13 +63,18 @@ export default class Navigation extends Component {
         //});
     }
 
+    closeDrawer() {
+        this.drawer.close();
+    }
+
     render() {
         //if (!this.session.isInited) {
         //    return (<Splash />);
         //}
 
-        var menu = <Menu drawer={this.drawer}/>;
+        var menu = <Menu navigation={this}/>;
 
+        //(ref) => this.drawer = ref
         return (
             <Drawer
                 ref={(ref) => this.drawer = ref}

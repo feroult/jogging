@@ -13,6 +13,7 @@ const context = {
     store: store
 };
 
+
 class App extends Component {
 
     render() {

@@ -23,15 +23,21 @@ export default class Menu extends Component {
 
     constructor(props, context) {
         super(props);
-        this.store = context.store;
+        this.session = context.store.session;
     }
 
-    action(fn) {
+    action = (fn) => {
         return () => {
-            this.props.drawer.close();
+            this.props.navigation.closeDrawer();
             fn();
         }
-    }
+    };
+
+    logout = () => {
+        this.session.logout().then(() => {
+            Actions.signIn();
+        });
+    };
 
     render() {
         var self = this;
@@ -39,14 +45,14 @@ export default class Menu extends Component {
             <ScrollView scrollsToTop={false} style={styles.menu} contentContainerStyle={styles.content}>
                 <View style={styles.shortcutsContainer}>
                     <Icon style={styles.shortcut} name="home" size={25}
-                          onPress={() => alert('not implemented')}
+                          onPress={this.action(() => Actions.records({type: 'reset'}))}
                     />
                     <Icon style={styles.shortcut} name="log-out" size={25}
-                          onPress={() => alert('not implemented')}
+                          onPress={this.action(this.logout)}
                     />
                 </View>
 
-                <TouchableHighlight onPress={() => alert('not implemented')}>
+                <TouchableHighlight onPress={this.action(() => Actions.records({type: 'reset'}))}>
                     <View style={styles.itemContainer}>
                         <Icon style={styles.menuIcon} name="stopwatch" size={30}/>
                         <Text style={styles.item}>Records</Text>
