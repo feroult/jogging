@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import {
     Dimensions,
-    AsyncStorage,
     StyleSheet,
     Text,
     Image,
@@ -13,9 +12,7 @@ import {
 
 import { Actions } from 'react-native-router-flux';
 import Spinner from 'react-native-spinkit';
-import Orientation from 'react-native-orientation';
 
-import AuthUtils from '../utils/auth-utils'
 import { connect } from '../utils/mobx/connect'
 
 // Form Style

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
 import {
-    Dimensions,
-    AsyncStorage,
     StyleSheet,
     Text,
     Image,
@@ -15,7 +13,6 @@ import { Actions } from 'react-native-router-flux';
 import Spinner from 'react-native-spinkit';
 import Orientation from 'react-native-orientation';
 
-import AuthUtils from '../utils/auth-utils'
 import { connect } from '../utils/mobx/connect'
 
 // Form
@@ -56,8 +53,6 @@ var formOptions = {
         }
     }
 };
-
-const window = Dimensions.get('window');
 
 @connect
 export default class SignIn extends Component {
@@ -142,7 +137,6 @@ var styles = StyleSheet.create({
         flex: 1,
         marginTop: 60,
         padding: 20,
-        width: window.width,
     },
     signInButton: {
         height: 50,

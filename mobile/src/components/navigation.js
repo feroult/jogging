@@ -16,14 +16,7 @@ import { connect } from '../utils/mobx/connect';
 import Menu from './menu';
 import SignIn from './sign-in';
 import SignUp from './sign-up';
-
-//import UserUtils from '../utils/user-utils';
-//
-//import Splash from './Splash'
-//import Menu from './Menu';
-//import EventJoinList from './EventJoinList'
-//import EventJoin from './EventJoin'
-//import EventNew from './EventNew'
+import Records from './records';
 
 var window = Dimensions.get('window');
 
@@ -43,7 +36,8 @@ class Pages extends Component {
             <Router>
                 <Scene key="root" navigationBarStyle={styles.navBar} titleStyle={styles.navBarTitle}>
                     <Scene key="signIn" component={SignIn} hideNavBar={true} type="reset" initial={true}/>
-                    <Scene key="signUp" component={SignUp} hideNavBar={false} title="New Account" />
+                    <Scene key="signUp" component={SignUp} hideNavBar={false} title="New Account"/>
+                    <Scene key="records" component={Records} hideNavBar={false} title="Records"/>
                 </Scene>
             </Router>
         );
