@@ -80,7 +80,7 @@ export default class SignIn extends Component {
     }
 
     componentDidMount() {
-        Orientation.lockToPortrait();
+        this.refs.form.getComponent('username').refs.input.focus();
     }
 
     onLoginFinished(error, result) {

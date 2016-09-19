@@ -27,9 +27,9 @@ var Username = t.refinement(t.String, function (s) {
     return !userExists;
 });
 
-var passwordMatch = true;
+var passwordMismatch = true;
 var Password = t.refinement(t.String, function (s) {
-    return passwordMatch;
+    return !passwordMismatch;
 });
 
 var SignInFormType = t.struct({
@@ -64,18 +64,34 @@ export default class SignIn extends Component {
 
     constructor(props, context) {
         super(props);
+        this.state = {
+            waiting: false,
+        };
         this.session = context.store.session;
     }
 
-    signUp() {
+    componentDidMount() {
+        this.refs.form.getComponent('name').refs.input.focus();
+        userExists = false;
+        passwordMismatch = true;
+    }
+
+    loading(on) {
+        console.log('state', this.state);
+        this.state.waiting = on;
+        this.setState(this.state);
+    }
+
+    signUp = () => {
         var form = this.refs.form;
         var info = form.getValue();
         if (info) {
+            this.loading(true);
             this.session.signUp(info).then(() => {
-                userExists = false;
                 Actions.signIn();
             }).catch((result) => {
                 if (result.status == 409) {
+                    this.loading(false);
                     userExists = true;
                     form.validate();
                     return;
@@ -85,8 +101,9 @@ export default class SignIn extends Component {
         }
     }
 
-    onChange(value) {
-        passwordMatch = value.password === value.verifyPassword;
+    onChange = (value) => {
+        this.state.value = value;
+        passwordMismatch = value.password !== value.verifyPassword;
         userExists = false;
     }
 
@@ -99,13 +116,24 @@ export default class SignIn extends Component {
                     ref="form"
                     type={SignInFormType}
                     options={formOptions}
+                    value={this.state.value}
                     onChange={this.onChange}
                 />
-                <TouchableHighlight style={styles.signInButton} onPress={this.signUp.bind(this)}>
-                    <Text style={styles.buttonText}>Sign Up</Text>
-                </TouchableHighlight>
+                { !this.state.waiting ? this.renderButton() : this.renderLoading() }
             </View>
         );
+    }
+
+    renderLoading() {
+        return (
+            <Spinner style={styles.loading} type={'Wave'}/>
+        );
+    }
+
+    renderButton() {
+        return (<TouchableHighlight style={styles.signInButton} onPress={ this.signUp }>
+            <Text style={styles.buttonText}>Sign Up</Text>
+        </TouchableHighlight>);
     }
 
 }
@@ -118,7 +146,6 @@ var styles = StyleSheet.create({
         width: window.width,
     },
     signInButton: {
-        //width: 200,
         height: 50,
         padding: 10,
         borderRadius: 10,
@@ -131,5 +158,8 @@ var styles = StyleSheet.create({
     buttonText: {
         fontWeight: 'bold',
         color: 'white',
+    },
+    loading: {
+        alignSelf: 'center'
     }
 });
