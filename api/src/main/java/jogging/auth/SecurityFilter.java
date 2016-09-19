@@ -65,7 +65,11 @@ public class SecurityFilter implements Filter {
     }
 
     private String getAccessToken(HttpServletRequest req) {
-        return req.getHeader(AUTHORIZATION_HEADER).substring(BEARER_LENGTH).trim();
+        String header = req.getHeader(AUTHORIZATION_HEADER);
+        if (header == null) {
+            return null;
+        }
+        return header.substring(BEARER_LENGTH).trim();
     }
 
     private boolean isProtected(HttpServletRequest req) {

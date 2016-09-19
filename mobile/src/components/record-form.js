@@ -11,6 +11,7 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from '../utils/mobx/connect'
 import Spinner from 'react-native-spinkit';
 import moment from 'moment';
+import _ from 'lodash';
 
 // Form
 import t from 'tcomb-form-native';
@@ -44,6 +45,7 @@ export default class NewRecord extends Component {
         this.state = {
             loading: false
         };
+        this.records = context.store.records;
     }
 
     loading(on) {
@@ -56,8 +58,18 @@ export default class NewRecord extends Component {
         let value = form.getValue();
         if (value) {
             this.loading(true);
+            this.records.save(this.prepareRecord(value)).then(() => {
+                Actions.records();
+            });
         }
     };
+
+    prepareRecord(value) {
+        let record = _.cloneDeep(value);
+        record.timestamp = record.date.getTime();
+        delete record.date;
+        return record;
+    }
 
     onChange = (value) => {
         this.state.value = value;

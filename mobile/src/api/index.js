@@ -1,6 +1,7 @@
 import yawp from 'yawp';
 
 import User from './user';
+import Record from './record';
 
 yawp.config((c) => {
     if (__DEV__) {
@@ -10,4 +11,4 @@ yawp.config((c) => {
     }
 });
 
-export { User };
+export { User, Record };

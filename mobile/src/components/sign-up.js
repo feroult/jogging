@@ -138,7 +138,7 @@ var styles = StyleSheet.create({
     container: {
         flex: 1,
         marginTop: 60,
-        padding: 20,
+        padding: 20
     },
     signInButton: {
         height: 50,
@@ -152,7 +152,7 @@ var styles = StyleSheet.create({
     },
     buttonText: {
         fontWeight: 'bold',
-        color: 'white',
+        color: 'white'
     },
     loading: {
         alignSelf: 'center'

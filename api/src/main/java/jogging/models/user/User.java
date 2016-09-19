@@ -4,6 +4,8 @@ import io.yawp.repository.IdRef;
 import io.yawp.repository.annotations.Endpoint;
 import io.yawp.repository.annotations.Id;
 
+import static jogging.models.user.Role.USER;
+
 @Endpoint(path = "/users")
 public class User implements UserFacades.Regular, UserFacades.Manager, UserFacades.Admin {
 
@@ -16,7 +18,7 @@ public class User implements UserFacades.Regular, UserFacades.Manager, UserFacad
 
     String name;
 
-    Role role;
+    Role role = USER;
 
     public IdRef<User> getId() {
         return id;
