@@ -93,7 +93,7 @@ export default class SignIn extends Component {
             this.loading(true);
             this.session.signIn(value)
                 .then(() => {
-                    Actions.records();
+                    Actions.records({type: 'reset'});
                 })
                 .catch(() => {
                     this.loading(false);

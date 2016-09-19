@@ -49,7 +49,7 @@ export default class Menu extends Component {
                 <TouchableHighlight onPress={() => alert('not implemented')}>
                     <View style={styles.itemContainer}>
                         <Icon style={styles.menuIcon} name="stopwatch" size={30}/>
-                        <Text style={styles.item}>Times</Text>
+                        <Text style={styles.item}>Records</Text>
                     </View>
                 </TouchableHighlight>
 
@@ -116,5 +116,16 @@ const styles = StyleSheet.create({
         fontFamily: 'Optima'
     },
 });
+
+const drawerStyles = {
+    drawer: {
+        borderRightWidth: 1,
+        borderRightColor: '#342e38'
+    },
+    mainOverlay: {
+        backgroundColor: 'black',
+        opacity: 0
+    }
+};
 
 

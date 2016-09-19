@@ -37,7 +37,7 @@ class Pages extends Component {
                 <Scene key="root" navigationBarStyle={styles.navBar} titleStyle={styles.navBarTitle}>
                     <Scene key="signIn" component={SignIn} hideNavBar={true} type="reset" initial={true}/>
                     <Scene key="signUp" component={SignUp} hideNavBar={false} title="New Account"/>
-                    <Scene key="records" component={Records} hideNavBar={false} title="Records"/>
+                    <Scene key="records" component={Records} hideNavBar={false} title="Records" drawerImage={drawerImage} />
                 </Scene>
             </Router>
         );
