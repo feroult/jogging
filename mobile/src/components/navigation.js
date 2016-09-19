@@ -10,6 +10,7 @@ import {
 
 import { Router, Scene, Actions } from 'react-native-router-flux';
 import Drawer from 'react-native-drawer';
+import Icon from 'react-native-vector-icons/Entypo';
 
 import { connect } from '../utils/mobx/connect';
 
@@ -37,12 +38,21 @@ class Pages extends Component {
                 <Scene key="root" navigationBarStyle={styles.navBar} titleStyle={styles.navBarTitle}>
                     <Scene key="signIn" component={SignIn} hideNavBar={true} type="reset"
                            initial={!this.session.isUserLoggedIn}/>
-                    <Scene key="signUp" component={SignUp} hideNavBar={false} title="New Account"/>
+                    <Scene key="signUp" component={SignUp} hideNavBar={false} title="New Account"
+                           backButtonImage={backButtonImage} leftButtonIconStyle={styles.backButtonIcon}/>
                     <Scene key="records" component={Records} hideNavBar={false} title="Records"
-                           drawerImage={drawerImage} initial={this.session.isUserLoggedIn}/>
+                           initial={this.session.isUserLoggedIn}
+                           getRightTitle={this.addButton} rightButtonStyle={styles.rightButton}
+                           onRight={() => alert('hi')}
+                           drawerImage={drawerImage}
+                           leftButtonIconStyle={styles.drawerButtonIcon}/>
                 </Scene>
             </Router>
         );
+    }
+
+    addButton() {
+        return (<Icon style={styles.addButton} name="circle-with-plus" size={28}/>);
     }
 }
 
@@ -102,10 +112,10 @@ export default class Navigation extends Component {
 
 var styles = StyleSheet.create({
     drawerButtonIcon: {
-        marginTop: (Platform.OS === 'ios') ? 0 : 0,
-        marginLeft: 4,
-        width: 20,
-        height: 14,
+        marginTop: (Platform.OS === 'ios') ? 4 : 0,
+        marginLeft: 6,
+        width: 26,
+        height: 18,
     },
     backButtonIcon: {
         marginLeft: 4,
@@ -132,6 +142,16 @@ var styles = StyleSheet.create({
         //marginLeft: 48,
         fontSize: 18,
         color: 'white',
+    },
+    rightButton: {
+        margin: 0,
+        padding: 0,
+        paddingTop: 3,
+        paddingRight: 12,
+    },
+    addButton: {
+        color: '#FA824C',
+        marginBottom: 3
     }
 
 });
