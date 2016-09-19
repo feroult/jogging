@@ -65,7 +65,7 @@ export default class SignIn extends Component {
     constructor(props, context) {
         super(props);
         this.state = {
-            waiting: false,
+            loading: false,
         };
         this.session = context.store.session;
     }
@@ -77,17 +77,16 @@ export default class SignIn extends Component {
     }
 
     loading(on) {
-        console.log('state', this.state);
-        this.state.waiting = on;
+        this.state.loading = on;
         this.setState(this.state);
     }
 
     signUp = () => {
-        var form = this.refs.form;
-        var info = form.getValue();
-        if (info) {
+        let form = this.refs.form;
+        let value = form.getValue();
+        if (value) {
             this.loading(true);
-            this.session.signUp(info).then(() => {
+            this.session.signUp(value).then(() => {
                 Actions.signIn();
             }).catch((result) => {
                 if (result.status == 409) {
@@ -108,7 +107,7 @@ export default class SignIn extends Component {
     }
 
     render() {
-        var self = this;
+        let self = this;
 
         return (
             <View style={styles.container}>
@@ -119,7 +118,7 @@ export default class SignIn extends Component {
                     value={this.state.value}
                     onChange={this.onChange}
                 />
-                { !this.state.waiting ? this.renderButton() : this.renderLoading() }
+                { !this.state.loading ? this.renderButton() : this.renderLoading() }
             </View>
         );
     }

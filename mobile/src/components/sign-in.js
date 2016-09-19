@@ -74,7 +74,7 @@ export default class SignIn extends Component {
     constructor(props, context) {
         super(props);
         this.state = {
-            waiting: false
+            loading: false
         };
         this.session = context.store.session;
     }
@@ -83,49 +83,31 @@ export default class SignIn extends Component {
         this.refs.form.getComponent('username').refs.input.focus();
     }
 
-    onLoginFinished(error, result) {
-        if (error) {
-            alert("Login error = " + result.error);
-            return;
+
+    loading(on) {
+        this.state.loading = on;
+        this.setState(this.state);
+    }
+
+    signIn = () => {
+        let form = this.refs.form;
+        let value = form.getValue();
+        if (value) {
+            this.loading(true);
+            this.session.signIn(value)
+                .then(() => {
+                    Actions.records();
+                })
+                .catch(() => {
+                    this.loading(false);
+                    alert('Invalid username/password');
+                });
         }
+    };
 
-        if (result.isCancelled) {
-            alert('Login canceled.');
-            return;
-        }
-
-        this.setState({
-            waiting: true
-        });
-
-        AuthUtils.init(() => {
-            this.session.login();
-            Actions.events();
-        });
-    }
-
-    onLogoutFinished() {
-        this.session.logout();
-    }
-
-    render() {
-        var self = this;
-
-        return (
-            <View style={styles.container}>
-                <Image
-                    source={require('../../assets/bg.jpg')}
-                    style={styles.bg}
-                    resizeMode={Image.resizeMode.cover}>
-                    { this.renderJoggingLogo() }
-                    <View style={styles.login}>
-                        { !this.state.waiting ? this.renderSignIn() : null}
-                        { this.state.waiting ? this.renderWaiting() : null }
-                    </View>
-                </Image>
-            </View>
-        );
-    }
+    onChange = (value) => {
+        this.state.value = value;
+    };
 
     renderJoggingLogo() {
         return (
@@ -136,17 +118,36 @@ export default class SignIn extends Component {
         );
     }
 
+    render() {
+        var self = this;
+        return (
+            <View style={styles.container}>
+                <Image
+                    source={require('../../assets/bg.jpg')}
+                    style={styles.bg}
+                    resizeMode={Image.resizeMode.cover}>
+                    { this.renderJoggingLogo() }<View style={styles.login}>
+                    { !this.state.loading ? this.renderSignIn() : null}
+                    { this.state.loading ? this.renderWaiting() : null }
+                </View>
+                </Image>
+            </View>
+        );
+    }
+
     renderSignIn() {
         return (<View>
             <Form
                 ref="form"
                 type={SignInFormType}
                 options={formOptions}
+                onChange={this.onChange}
+                value={this.state.value}
             />
-            <TouchableHighlight style={styles.signInButton}>
+            <TouchableHighlight style={styles.signInButton} onPress={this.signIn}>
                 <Text style={styles.buttonText}>Sign In</Text>
             </TouchableHighlight>
-            <TouchableHighlight style={styles.signUpButton} onPress={ () => Actions.signUp() }>
+            <TouchableHighlight style={styles.signUpButton} onPress={Actions.signUp}>
                 <Text style={styles.buttonText}>New Account</Text>
             </TouchableHighlight>
         </View>)
