@@ -59,7 +59,7 @@ export default class NewRecord extends Component {
         if (value) {
             this.loading(true);
             this.records.save(this.prepareRecord(value)).then(() => {
-                Actions.records();
+                Actions.records({type: 'reset'});
             });
         }
     };

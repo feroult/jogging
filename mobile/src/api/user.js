@@ -10,8 +10,8 @@ class User extends yawp('/users') {
         return this.json(info).post('sign-in');
     }
 
-    static me() {
-        return this.get('me');
+    static me(fn) {
+        return this.get('me').then(fn);
     }
 
 }

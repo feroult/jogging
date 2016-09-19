@@ -1,9 +1,9 @@
 import SessionStore from './session-store';
-import RecordsStore from './records-store';
+import RecordStore from './record-store';
 
 import { observable } from 'mobx';
 
 export default {
     session: new SessionStore(),
-    records: new RecordsStore()
+    records: new RecordStore()
 }

@@ -9,17 +9,24 @@ export default class {
     @observable currentUser;
 
     constructor() {
-        AsyncStorage.getItem('session').then((session) => {
-            if (session) {
-                this.isUserLoggedIn = true;
-                this.currentUser = session.user;
-                this.configureAccessToken(session.token);
-            }
-        });
+        AsyncStorage.getItem('session')
+            .then((session) => JSON.parse(session))
+            .then((session) => {
+                    console.log('session', session);
+
+                    if (session) {
+                        this.isUserLoggedIn = true;
+                        this.currentUser = session.user;
+                        this.configureAccessToken(session.token);
+                    }
+                }
+            )
+        ;
     }
 
     configureAccessToken(token) {
         yawp.config((c) => {
+            console.log('token', token);
             c.defaultFetchOptions({
                 headers: {
                     Authorization: 'Bearer ' + token
@@ -31,7 +38,8 @@ export default class {
     signIn(info) {
         return User.signIn(info).then((token) => {
             this.configureAccessToken(token);
-            User.me((user) => {
+            return User.me((user) => {
+                console.log('saving session');
                 this.isUserLoggedIn = true;
                 this.currentUser = user;
                 return AsyncStorage.setItem('session', JSON.stringify({
