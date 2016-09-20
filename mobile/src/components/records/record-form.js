@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
-import { connect } from '../utils/mobx/connect'
+import { connect } from '../../utils/mobx/connect'
 import Spinner from 'react-native-spinkit';
 import moment from 'moment';
 import _ from 'lodash';
@@ -38,7 +38,7 @@ var formOptions = {
 };
 
 @connect
-export default class NewRecord extends Component {
+export default class RecordForm extends Component {
 
     constructor(props, context) {
         super(props);

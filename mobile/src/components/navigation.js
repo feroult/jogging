@@ -17,8 +17,8 @@ import { connect } from '../utils/mobx/connect';
 import Menu from './menu';
 import SignIn from './sign-in';
 import SignUp from './sign-up';
-import Records from './records';
-import RecordForm from './record-form';
+import RecordsList from './records/records-list';
+import RecordForm from './records/record-form';
 
 var window = Dimensions.get('window');
 
@@ -45,7 +45,7 @@ class Pages extends Component {
                            initial={!this.session.isUserLoggedIn}/>
                     <Scene key="signUp" component={SignUp} hideNavBar={false} title="New Account"
                            backButtonImage={backButtonImage} leftButtonIconStyle={styles.backButtonIcon}/>
-                    <Scene key="records" component={Records} hideNavBar={false} title="Records"
+                    <Scene key="records" component={RecordsList} hideNavBar={false} title="Records"
                            initial={this.session.isUserLoggedIn}
                            getRightTitle={this.addButton} rightButtonStyle={styles.rightButton}
                            onRight={this.newRecord}

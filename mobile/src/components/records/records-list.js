@@ -12,16 +12,16 @@ import {
 } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
-import Icon from 'react-native-vector-icons/Entypo';
+import Icon from '../../../node_modules/react-native-vector-icons/Entypo';
 import moment from 'moment';
-import { connect } from '../utils/mobx/connect';
+import { connect } from '../../utils/mobx/connect';
 
 const window = Dimensions.get('window');
 
 var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 @connect
-export default class Records extends Component {
+export default class RecordsList extends Component {
 
     constructor(props, context) {
         super(props);
