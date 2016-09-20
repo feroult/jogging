@@ -8,20 +8,15 @@ export default class {
     @observable isUserLoggedIn = false;
     @observable currentUser;
 
-    constructor() {
-        AsyncStorage.getItem('session')
+    init() {
+        return AsyncStorage.getItem('session')
             .then((session) => JSON.parse(session))
             .then((session) => {
-                    console.log('session', session);
-
                     if (session) {
-                        this.isUserLoggedIn = true;
-                        this.currentUser = session.user;
-                        this.configureAccessToken(session.token);
+                        return this.configureAccessToken(session.token);
                     }
                 }
-            )
-        ;
+            );
     }
 
     configureAccessToken(token) {
@@ -33,20 +28,21 @@ export default class {
                 }
             });
         });
+        return User.me((user) => {
+            this.isUserLoggedIn = true;
+            this.currentUser = user;
+            return AsyncStorage.setItem('session', JSON.stringify({
+                token: token
+            }));
+        }).catch((error) => {
+            console.log('authentication error', error);
+            this.logout();
+        });
     }
 
     signIn(info) {
         return User.signIn(info).then((token) => {
-            this.configureAccessToken(token);
-            return User.me((user) => {
-                console.log('saving session');
-                this.isUserLoggedIn = true;
-                this.currentUser = user;
-                return AsyncStorage.setItem('session', JSON.stringify({
-                    user: user,
-                    token: token
-                }));
-            });
+            return this.configureAccessToken(token);
         });
     }
 
@@ -55,6 +51,8 @@ export default class {
     }
 
     logout() {
+        this.isUserLoggedIn = false;
+        this.currentUser = null;
         return AsyncStorage.removeItem('session');
     }
 

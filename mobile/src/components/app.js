@@ -17,7 +17,24 @@ console.ignoredYellowBox = ['Warning: Failed propType', 'Warning: In next releas
 
 class App extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            ready: false
+        }
+    }
+
+    componentWillMount() {
+        context.store.session.init()
+            .then(() => {
+                this.setState({ready: true});
+            });
+    }
+
     render() {
+        if (!this.state.ready) {
+            return (<View></View>);
+        }
         return (<Provider context={context}><Navigation /></Provider>);
     }
 

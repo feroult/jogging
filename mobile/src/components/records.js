@@ -18,6 +18,8 @@ import { connect } from '../utils/mobx/connect';
 
 const window = Dimensions.get('window');
 
+var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
 @connect
 export default class Records extends Component {
 
@@ -27,7 +29,6 @@ export default class Records extends Component {
             loading: false
         };
         this.records = context.store.records;
-        this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id});
     }
 
     componentDidMount() {
@@ -35,7 +36,7 @@ export default class Records extends Component {
     }
 
     dataSource = () => {
-        return this.ds.cloneWithRows(this.records.all());
+        return ds.cloneWithRows(this.records.all());
     };
 
     loading(on) {

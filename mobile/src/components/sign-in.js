@@ -95,8 +95,9 @@ export default class SignIn extends Component {
                 .then(() => {
                     Actions.records({type: 'reset'});
                 })
-                .catch(() => {
+                .catch((err) => {
                     this.loading(false);
+                    console.log('err', err);
                     alert('Invalid username/password');
                 });
         }
@@ -118,29 +119,28 @@ export default class SignIn extends Component {
     render() {
         var self = this;
         return (
-            <View style={styles.recordContainer}>
+            <View style={styles.container}>
                 <Image
                     source={require('../../assets/bg.jpg')}
                     style={styles.bg}
                     resizeMode={Image.resizeMode.cover}>
                     { this.renderJoggingLogo() }<View style={styles.login}>
-                    { !this.state.loading ? this.renderSignIn() : null}
-                    { this.state.loading ? this.renderWaiting() : null }
+                    <Form
+                        ref="form"
+                        type={SignInFormType}
+                        options={formOptions}
+                        onChange={this.onChange}
+                        value={this.state.value}
+                    />
+                    { !this.state.loading ? this.renderButtons() : this.renderWaiting()}
                 </View>
                 </Image>
             </View>
         );
     }
 
-    renderSignIn() {
+    renderButtons() {
         return (<View>
-            <Form
-                ref="form"
-                type={SignInFormType}
-                options={formOptions}
-                onChange={this.onChange}
-                value={this.state.value}
-            />
             <TouchableHighlight style={styles.signInButton} onPress={this.signIn}>
                 <Text style={styles.buttonText}>Sign In</Text>
             </TouchableHighlight>
@@ -152,13 +152,13 @@ export default class SignIn extends Component {
 
     renderWaiting() {
         return (
-            <Spinner type={'Wave'}/>
+            <Spinner style={styles.loading} type={'Wave'}/>
         );
     }
 }
 
 var styles = StyleSheet.create({
-    recordContainer: {
+    container: {
         flex: 1,
         flexDirection: 'column',
         alignItems: 'center',
@@ -220,5 +220,8 @@ var styles = StyleSheet.create({
     buttonText: {
         fontWeight: 'bold',
         color: 'white',
+    },
+    loading: {
+        alignSelf: 'center'
     }
 });

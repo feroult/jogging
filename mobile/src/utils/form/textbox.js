@@ -8,7 +8,7 @@ function textbox(locals) {
 
     var stylesheet = locals.stylesheet;
     var formGroupStyle = stylesheet.formGroup.normal;
-    var containerStyle = stylesheet.recordContainer.normal;
+    var containerStyle = stylesheet.container.normal;
     var controlLabelStyle = stylesheet.controlLabel.normal;
     var textboxStyle = stylesheet.textbox.normal;
     var helpBlockStyle = stylesheet.helpBlock.normal;
@@ -16,7 +16,7 @@ function textbox(locals) {
 
     if (locals.hasError) {
         formGroupStyle = stylesheet.formGroup.error;
-        containerStyle = stylesheet.recordContainer.error;
+        containerStyle = stylesheet.container.error;
         controlLabelStyle = stylesheet.controlLabel.error;
         textboxStyle = stylesheet.textbox.error;
         helpBlockStyle = stylesheet.helpBlock.error;

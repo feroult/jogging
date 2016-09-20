@@ -15,6 +15,7 @@ public class Record {
     @Index
     IdRef<User> userId;
 
+    @Index
     long timestamp;
 
     int time;
