@@ -64,6 +64,13 @@ export default class {
         return this.currentUser.role === 'ADMIN';
     }
 
+    isMe(user) {
+        if (!this.currentUser) {
+            return false;
+        }
+        return this.currentUser.id === user.id;
+    }
+
     logout() {
         this.isUserLoggedIn = false;
         this.currentUser = null;
