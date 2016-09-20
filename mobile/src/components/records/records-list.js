@@ -48,6 +48,10 @@ export default class RecordsList extends Component {
         this.records.load().then(() => this.loading(false));
     };
 
+    openRecord = (record) => {
+        Actions.recordForm({record});
+    };
+
     render() {
         return (
             <View style={styles.container}>
@@ -73,7 +77,7 @@ export default class RecordsList extends Component {
         let timeUnit = record.time == 1 ? 'second' : 'seconds';
         let velocity = (record.distance / record.time).toFixed(2);
         return (
-            <TouchableHighlight style={styles.highlight} onPress={ () => alert('hi') }>
+            <TouchableHighlight style={styles.highlight} onPress={() => this.openRecord(record)}>
                 <View style={styles.recordContainer}>
                     <Icon style={styles.recordIcon} name="stopwatch" size={40}/>
                     <View style={styles.rightContainer}>

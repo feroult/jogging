@@ -7,10 +7,6 @@ export default class {
 
     @observable records = [];
 
-    save(record) {
-        return new Record(record).save().then(() => this.load());
-    }
-
     all() {
         return this.records.slice();
     }
@@ -19,6 +15,14 @@ export default class {
         return Record.all((records) => {
             this.records = records;
         })
+    }
+
+    save(record) {
+        return new Record(record).save().then(() => this.load());
+    }
+
+    remove(record) {
+        return record.destroy().then(() => this.load());
     }
 
 }

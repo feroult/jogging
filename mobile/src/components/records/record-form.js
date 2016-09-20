@@ -46,6 +46,11 @@ export default class RecordForm extends Component {
             loading: false
         };
         this.records = context.store.records;
+
+        this.record = props.record;
+        if (this.record) {
+            this.state.value = this.prepareValue(this.record);
+        }
     }
 
     loading(on) {
@@ -64,8 +69,24 @@ export default class RecordForm extends Component {
         }
     };
 
+    remove = () => {
+        this.records.remove(this.record).then(() => {
+            Actions.records({type: 'reset'});
+        });
+    };
+
+    prepareValue(record) {
+        let value = _.cloneDeep(record);
+        value.date = new Date(record.timestamp);
+        delete value.timestamp;
+        return value;
+    }
+
     prepareRecord(value) {
         let record = _.cloneDeep(value);
+        if (this.record) {
+            record.id = this.record.id;
+        }
         record.timestamp = record.date.getTime();
         delete record.date;
         return record;
@@ -85,7 +106,7 @@ export default class RecordForm extends Component {
                     value={this.state.value}
                     onChange={this.onChange}
                 />
-                { !this.state.loading ? this.renderButton() : this.renderLoading() }
+                { !this.state.loading ? this.renderButtons() : this.renderLoading() }
             </View>
         );
     }
@@ -96,10 +117,27 @@ export default class RecordForm extends Component {
         );
     }
 
-    renderButton() {
+    renderButtons() {
+        return (
+            <View>
+                { this.renderSaveButton() }
+                { this.record ? this.renderRemoveButton() : null }
+            </View>
+        );
+    }
+
+    renderSaveButton() {
         return (
             <TouchableHighlight style={styles.saveButton} onPress={ this.save }>
                 <Text style={styles.buttonText}>Save</Text>
+            </TouchableHighlight>
+        );
+    }
+
+    renderRemoveButton() {
+        return (
+            <TouchableHighlight style={styles.removeButton} onPress={ this.remove }>
+                <Text style={styles.buttonText}>Remove</Text>
             </TouchableHighlight>
         );
     }
@@ -118,6 +156,17 @@ var styles = StyleSheet.create({
         borderColor: '#444',
         borderWidth: 1,
         backgroundColor: '#3C91E6',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    removeButton: {
+        marginTop: 20,
+        height: 50,
+        padding: 10,
+        borderRadius: 10,
+        borderColor: '#444',
+        borderWidth: 1,
+        backgroundColor: '#E64444',
         alignItems: 'center',
         justifyContent: 'center'
     },
