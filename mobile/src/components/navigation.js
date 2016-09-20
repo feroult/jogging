@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import {
-    InteractionManager,
     Platform,
     Dimensions,
     Text,
@@ -39,13 +38,6 @@ class Pages extends Component {
         Actions.recordForm();
     };
 
-    back = () => {
-        Actions.pop({type: 'refresh'});
-        InteractionManager.runAfterInteractions(() => {
-            console.log('animation finished');
-        })
-    };
-
     render() {
         return (
             <Router>
@@ -65,7 +57,6 @@ class Pages extends Component {
                            leftButtonIconStyle={styles.drawerButtonIcon}/>
                     <Scene key="recordForm" component={RecordForm} hideNavBar={false} title="Record"
                            duration={0}
-                           onBack={this.back}
                            backButtonImage={backButtonImage} leftButtonIconStyle={styles.backButtonIcon}/>
                     <Scene key="weeklyReport" component={WeeklyReport} hideNavBar={false} title="Weekly Report"
                            duration={0}
