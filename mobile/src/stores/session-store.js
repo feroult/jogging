@@ -57,6 +57,13 @@ export default class {
         return this.currentUser.role === 'MANAGER' || this.currentUser.role === 'ADMIN';
     }
 
+    isAdmin() {
+        if (!this.currentUser) {
+            return false;
+        }
+        return this.currentUser.role === 'ADMIN';
+    }
+
     logout() {
         this.isUserLoggedIn = false;
         this.currentUser = null;

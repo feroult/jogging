@@ -1,13 +1,15 @@
 package jogging.models.user;
 
 
+import io.yawp.repository.IdRef;
+
 public class UserFacades {
 
     public interface Regular {
 
-        String getUsername();
+        IdRef<User> getId();
 
-        void setPassword(String password);
+        String getUsername();
 
         String getName();
 
@@ -19,11 +21,12 @@ public class UserFacades {
 
     public interface Manager extends Regular {
 
-        void setRole(Role role);
-
     }
 
     public interface Admin extends Manager {
+
+        void setRole(Role role);
+
     }
 
 }

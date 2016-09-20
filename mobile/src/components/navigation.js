@@ -21,6 +21,7 @@ import RecordList from './records/record-list';
 import RecordForm from './records/record-form';
 import WeeklyReport from './records/weekly-report';
 import UserList from './users/user-list';
+import UserForm from './users/user-form';
 
 var window = Dimensions.get('window');
 
@@ -65,10 +66,11 @@ class Pages extends Component {
                            leftButtonIconStyle={styles.drawerButtonIcon}/>
                     <Scene key="users" component={UserList} hideNavBar={false} title="Users"
                            duration={0}
-                           getRightTitle={this.addButton} rightButtonStyle={styles.rightButton}
-                           onRight={() => alert('hi')}
                            drawerImage={drawerImage}
                            leftButtonIconStyle={styles.drawerButtonIcon}/>
+                    <Scene key="userForm" component={UserForm} hideNavBar={false} title="User"
+                           duration={0}
+                           backButtonImage={backButtonImage} leftButtonIconStyle={styles.backButtonIcon}/>
 
                 </Scene>
             </Router>

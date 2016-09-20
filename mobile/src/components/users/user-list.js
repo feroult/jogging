@@ -48,8 +48,8 @@ export default class UserList extends Component {
         this.users.load().then(() => this.loading(false));
     };
 
-    openRecord = (record) => {
-        Actions.recordForm({record});
+    openUser = (user) => {
+        Actions.userForm({user});
     };
 
     render() {
@@ -73,7 +73,7 @@ export default class UserList extends Component {
 
     renderUser = (user) => {
         return (
-            <TouchableHighlight style={styles.highlight} onPress={() => this.openRecord(record)}>
+            <TouchableHighlight style={styles.highlight} onPress={() => this.openUser(user)}>
                 <View style={styles.userContainer}>
                     <Icon style={styles.userIcon} name="user" size={40}/>
                     <View style={styles.rightContainer}>
