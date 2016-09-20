@@ -46,12 +46,16 @@ export default class UserForm extends Component {
         return this.session.isMe(this.user);
     };
 
+    canEditUser = () => {
+        return !this.isMe() && this.user.role !== 'ADMIN';
+    };
+
     getFormType = () => {
         var fields = {
             name: t.String
         };
 
-        if (this.session.isAdmin() && !this.isMe()) {
+        if (this.session.isAdmin() && this.canEditUser()) {
             fields.role = Role;
         }
 
@@ -120,7 +124,7 @@ export default class UserForm extends Component {
         return (
             <View>
                 { this.renderSaveButton() }
-                { !this.isMe() ? this.renderRemoveButton() : null }
+                { this.canEditUser() ? this.renderRemoveButton() : null }
             </View>
         );
     }
