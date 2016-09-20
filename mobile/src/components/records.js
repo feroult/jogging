@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import {
+    Dimensions,
     Platform,
     StyleSheet,
     Text,
@@ -15,6 +16,7 @@ import Icon from 'react-native-vector-icons/Entypo';
 import moment from 'moment';
 import { connect } from '../utils/mobx/connect';
 
+const window = Dimensions.get('window');
 
 @connect
 export default class Records extends Component {
@@ -47,17 +49,20 @@ export default class Records extends Component {
 
     render() {
         return (
-            <ListView
-                style={styles.listView}
-                dataSource={this.dataSource()}
-                renderRow={this.renderRecord}
-                refreshControl={
+            <View style={styles.container}>
+                <ListView
+                    automaticallyAdjustContentInsets={false}
+                    style={styles.listView}
+                    dataSource={this.dataSource()}
+                    renderRow={this.renderRecord}
+                    refreshControl={
                   <RefreshControl
                     refreshing={this.state.loading}
                     onRefresh={this.refresh}
                   />
                 }
-            />
+                />
+            </View>
         );
     }
 
@@ -89,19 +94,21 @@ export default class Records extends Component {
     }
 }
 
+var gap = (Platform.OS === 'ios') ? 65 : 50;
+
 var styles = StyleSheet.create({
+    container: {
+        marginTop: gap,
+        height: window.height - gap
+    },
     listView: {
-        top: (Platform.OS === 'ios') ? 60 : 50,
-        backgroundColor: '#F5FCFF',
-        height: 300
+        //top: (Platform.OS === 'ios') ? 60 : 50,
     },
     recordContainer: {
         flex: 1,
         flexDirection: 'row',
         height: 86,
         alignItems: 'flex-start',
-        backgroundColor: '#F5FCFF',
-
     },
     rightContainer: {
         flexDirection: 'row',
