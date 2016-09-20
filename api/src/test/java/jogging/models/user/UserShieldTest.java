@@ -6,7 +6,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class UserShieldTest extends UserTestCase {
-    
+
     @Test
     public void testUsersCanUpdateTheirBasicInfo() {
         login("john");
@@ -122,5 +122,7 @@ public class UserShieldTest extends UserTestCase {
         User paul = from(get("/users/paul"), User.class);
         assertEquals(role, paul.role);
     }
+
+    // TODO: test manager cannot delete admins
 
 }
