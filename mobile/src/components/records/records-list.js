@@ -106,9 +106,7 @@ var styles = StyleSheet.create({
         marginTop: gap,
         height: window.height - gap
     },
-    listView: {
-        //top: (Platform.OS === 'ios') ? 60 : 50,
-    },
+    listView: {},
     recordContainer: {
         flex: 1,
         flexDirection: 'row',

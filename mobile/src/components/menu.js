@@ -61,7 +61,7 @@ export default class Menu extends Component {
 
                 <TouchableHighlight onPress={this.action(() => Actions.weeklyReport({type: 'reset'}))}>
                     <View style={styles.itemContainer}>
-                        <Icon style={styles.menuIcon} name="pie-chart" size={30}/>
+                        <Icon style={styles.menuIcon} name="back-in-time" size={30}/>
                         <Text style={styles.item}>Weekly Report</Text>
                     </View>
                 </TouchableHighlight>

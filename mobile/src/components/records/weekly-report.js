@@ -75,7 +75,7 @@ export default class WeeklyReport extends Component {
         return (
             <TouchableHighlight style={styles.highlight}>
                 <View style={styles.recordContainer}>
-                    <Icon style={styles.recordIcon} name="stopwatch" size={40}/>
+                    <Icon style={styles.recordIcon} name="back-in-time" size={40}/>
                     <View style={styles.rightContainer}>
                         <View style={styles.rightContainerInfo}>
                             <Text style={styles.date}>{date}</Text>

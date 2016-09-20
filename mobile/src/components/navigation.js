@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import {
+    InteractionManager,
     Platform,
     Dimensions,
     Text,
@@ -38,23 +39,36 @@ class Pages extends Component {
         Actions.recordForm();
     };
 
+    back = () => {
+        Actions.pop({type: 'refresh'});
+        InteractionManager.runAfterInteractions(() => {
+            console.log('animation finished');
+        })
+    };
+
     render() {
         return (
             <Router>
                 <Scene key="root" navigationBarStyle={styles.navBar} titleStyle={styles.navBarTitle}>
                     <Scene key="signIn" component={SignIn} hideNavBar={true} type="reset"
+                           duration={0}
                            initial={!this.session.isUserLoggedIn}/>
                     <Scene key="signUp" component={SignUp} hideNavBar={false} title="New Account"
+                           duration={0}
                            backButtonImage={backButtonImage} leftButtonIconStyle={styles.backButtonIcon}/>
                     <Scene key="records" component={RecordsList} hideNavBar={false} title="Records"
+                           duration={0}
                            initial={this.session.isUserLoggedIn}
                            getRightTitle={this.addButton} rightButtonStyle={styles.rightButton}
                            onRight={this.newRecord}
                            drawerImage={drawerImage}
                            leftButtonIconStyle={styles.drawerButtonIcon}/>
                     <Scene key="recordForm" component={RecordForm} hideNavBar={false} title="Record"
+                           duration={0}
+                           onBack={this.back}
                            backButtonImage={backButtonImage} leftButtonIconStyle={styles.backButtonIcon}/>
                     <Scene key="weeklyReport" component={WeeklyReport} hideNavBar={false} title="Weekly Report"
+                           duration={0}
                            drawerImage={drawerImage}
                            leftButtonIconStyle={styles.drawerButtonIcon}/>
                 </Scene>

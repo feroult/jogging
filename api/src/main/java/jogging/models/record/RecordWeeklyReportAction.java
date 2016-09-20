@@ -39,7 +39,7 @@ public class RecordWeeklyReportAction extends Action<Record> {
 
     private List<Record> getRecords(String user) {
         IdRef<User> userId = user == null ? AuthUtils.getCurrentUserId() : id(User.class, user);
-        return yawp(Record.class).where("userId", "=", userId).list();
+        return yawp(Record.class).order("timestamp", "desc").where("userId", "=", userId).list();
     }
 
     private String getWeek(Record record) {
