@@ -13,6 +13,7 @@ const context = {
     store: store
 };
 
+console.ignoredYellowBox = ['Warning: Failed propType', 'Warning: In next release empty'];
 
 class App extends Component {
 

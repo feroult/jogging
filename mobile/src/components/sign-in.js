@@ -118,7 +118,7 @@ export default class SignIn extends Component {
     render() {
         var self = this;
         return (
-            <View style={styles.container}>
+            <View style={styles.recordContainer}>
                 <Image
                     source={require('../../assets/bg.jpg')}
                     style={styles.bg}
@@ -158,7 +158,7 @@ export default class SignIn extends Component {
 }
 
 var styles = StyleSheet.create({
-    container: {
+    recordContainer: {
         flex: 1,
         flexDirection: 'column',
         alignItems: 'center',

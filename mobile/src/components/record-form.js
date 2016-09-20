@@ -77,7 +77,7 @@ export default class NewRecord extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={styles.recordContainer}>
                 <Form
                     ref="form"
                     type={RecordFormType}
@@ -106,7 +106,7 @@ export default class NewRecord extends Component {
 }
 
 var styles = StyleSheet.create({
-    container: {
+    recordContainer: {
         flex: 1,
         marginTop: 60,
         padding: 20

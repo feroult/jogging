@@ -105,7 +105,7 @@ export default class SignIn extends Component {
         let self = this;
 
         return (
-            <View style={styles.container}>
+            <View style={styles.recordContainer}>
                 <Form
                     ref="form"
                     type={SignInFormType}
@@ -135,7 +135,7 @@ export default class SignIn extends Component {
 }
 
 var styles = StyleSheet.create({
-    container: {
+    recordContainer: {
         flex: 1,
         marginTop: 60,
         padding: 20
