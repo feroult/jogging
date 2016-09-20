@@ -13,7 +13,7 @@ import { Actions } from 'react-native-router-flux';
 import Spinner from 'react-native-spinkit';
 import Orientation from 'react-native-orientation';
 
-import { connect } from '../utils/mobx/connect'
+import { connect } from '../../utils/mobx/connect'
 
 // Form
 import t from 'tcomb-form-native';

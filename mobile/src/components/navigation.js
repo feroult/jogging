@@ -15,8 +15,8 @@ import Icon from 'react-native-vector-icons/Entypo';
 import { connect } from '../utils/mobx/connect';
 
 import Menu from './menu';
-import SignIn from './sign-in';
-import SignUp from './sign-up';
+import SignIn from './auth/sign-in';
+import SignUp from './auth/sign-up';
 import RecordsList from './records/records-list';
 import RecordForm from './records/record-form';
 

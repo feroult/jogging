@@ -13,10 +13,10 @@ import {
 import { Actions } from 'react-native-router-flux';
 import Spinner from 'react-native-spinkit';
 
-import { connect } from '../utils/mobx/connect'
+import { connect } from '../../utils/mobx/connect'
 
 // Form Style
-var formStylesheet = _.cloneDeep(require('../utils/form/stylesheet'));
+var formStylesheet = _.cloneDeep(require('../../utils/form/stylesheet'));
 
 var textboxStyle = {
     width: 200,
@@ -35,7 +35,7 @@ _.merge(formStylesheet, {
 // Form
 import _ from 'lodash';
 import t from 'tcomb-form-native';
-import textbox from  '../utils/form/textbox'
+import textbox from  './../../utils/form/textbox'
 var Form = t.form.Form;
 
 
@@ -121,7 +121,7 @@ export default class SignIn extends Component {
         return (
             <View style={styles.container}>
                 <Image
-                    source={require('../../assets/bg.jpg')}
+                    source={require('../../../assets/bg.jpg')}
                     style={styles.bg}
                     resizeMode={Image.resizeMode.cover}>
                     { this.renderJoggingLogo() }<View style={styles.login}>
