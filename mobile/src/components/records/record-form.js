@@ -51,13 +51,8 @@ export default class RecordForm extends Component {
         if (this.record) {
             this.state.value = this.prepareValue(this.record);
         }
-        console.log('ha!!!');
     }
-
-    componentDidMount() {
-        console.log('heheheh!!!');
-    }
-
+    
     loading(on) {
         this.state.loading = on;
         this.setState(this.state);

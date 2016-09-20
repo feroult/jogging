@@ -66,13 +66,22 @@ export default class Menu extends Component {
                     </View>
                 </TouchableHighlight>
 
-                <TouchableHighlight onPress={() => alert('not implemented')}>
-                    <View style={styles.itemContainer}>
-                        <Icon style={styles.menuIcon} name="users" size={30}/>
-                        <Text style={styles.item}>Users</Text>
-                    </View>
-                </TouchableHighlight>
+                { this.renderUsersMenu() }
             </ScrollView>
+        );
+    }
+
+    renderUsersMenu() {
+        if (!this.session.isManagerOrAdmin()) {
+            return null;
+        }
+        return (
+            <TouchableHighlight onPress={() => alert('not implemented')}>
+                <View style={styles.itemContainer}>
+                    <Icon style={styles.menuIcon} name="users" size={30}/>
+                    <Text style={styles.item}>Users</Text>
+                </View>
+            </TouchableHighlight>
         );
     }
 }

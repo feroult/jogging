@@ -3,13 +3,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
+
     <filter>
         <filter-name>SecurityFilter</filter-name>
         <filter-class>jogging.auth.SecurityFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>SecurityFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/api/*</url-pattern>
     </filter-mapping>
 
     <servlet>
@@ -21,4 +22,31 @@
         <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AdminMockServlet</servlet-name>
+        <servlet-class>jogging.auth.AdminMockServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminMockServlet</servlet-name>
+        <url-pattern>/_ah/mock-admin</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>EndpointFixturesServlet</servlet-name>
+        <servlet-class>io.yawp.servlet.FixturesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EndpointFixturesServlet</servlet-name>
+        <url-pattern>/fixtures/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ToolsServlet</servlet-name>
+        <servlet-class>io.yawp.tools.ToolsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ToolsServlet</servlet-name>
+        <url-pattern>/_ah/yawp/*</url-pattern>
+    </servlet-mapping>
 </web-app>

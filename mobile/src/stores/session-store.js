@@ -36,7 +36,7 @@ export default class {
             }));
         }).catch((error) => {
             console.log('authentication error', error);
-            this.logout();
+            return this.logout();
         });
     }
 
@@ -48,6 +48,13 @@ export default class {
 
     signUp(info) {
         return User.signUp(info);
+    }
+
+    isManagerOrAdmin() {
+        if (!this.currentUser) {
+            return false;
+        }
+        return this.currentUser.role === 'MANAGER' || this.currentUser.role === 'ADMIN';
     }
 
     logout() {

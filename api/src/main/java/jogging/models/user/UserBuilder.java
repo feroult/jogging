@@ -20,6 +20,11 @@ public class UserBuilder {
         return this;
     }
 
+    public UserBuilder password(String password) {
+        user.password = password;
+        return this;
+    }
+
     public UserBuilder name(String name) {
         user.name = name;
         return this;
