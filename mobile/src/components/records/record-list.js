@@ -21,7 +21,7 @@ const window = Dimensions.get('window');
 var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 @connect
-export default class RecordsList extends Component {
+export default class RecordList extends Component {
 
     constructor(props, context) {
         super(props);

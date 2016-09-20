@@ -76,7 +76,7 @@ export default class Menu extends Component {
             return null;
         }
         return (
-            <TouchableHighlight onPress={() => alert('not implemented')}>
+            <TouchableHighlight onPress={this.action(() => Actions.users({type: 'reset'}))}>
                 <View style={styles.itemContainer}>
                     <Icon style={styles.menuIcon} name="users" size={30}/>
                     <Text style={styles.item}>Users</Text>

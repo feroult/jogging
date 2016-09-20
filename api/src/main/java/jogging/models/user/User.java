@@ -3,6 +3,7 @@ package jogging.models.user;
 import io.yawp.repository.IdRef;
 import io.yawp.repository.annotations.Endpoint;
 import io.yawp.repository.annotations.Id;
+import io.yawp.repository.annotations.Index;
 
 import static jogging.models.user.Role.USER;
 
@@ -16,6 +17,7 @@ public class User implements UserFacades.Regular, UserFacades.Manager, UserFacad
 
     String password;
 
+    @Index
     String name;
 
     Role role = USER;
