@@ -19,6 +19,7 @@ import SignIn from './auth/sign-in';
 import SignUp from './auth/sign-up';
 import RecordsList from './records/records-list';
 import RecordForm from './records/record-form';
+import WeeklyReport from './records/weekly-report';
 
 var window = Dimensions.get('window');
 
@@ -53,6 +54,9 @@ class Pages extends Component {
                            leftButtonIconStyle={styles.drawerButtonIcon}/>
                     <Scene key="recordForm" component={RecordForm} hideNavBar={false} title="Record"
                            backButtonImage={backButtonImage} leftButtonIconStyle={styles.backButtonIcon}/>
+                    <Scene key="weeklyReport" component={WeeklyReport} hideNavBar={false} title="Weekly Report"
+                           drawerImage={drawerImage}
+                           leftButtonIconStyle={styles.drawerButtonIcon}/>
                 </Scene>
             </Router>
         );

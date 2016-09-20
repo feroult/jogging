@@ -59,17 +59,17 @@ export default class Menu extends Component {
                     </View>
                 </TouchableHighlight>
 
-                <TouchableHighlight onPress={() => alert('not implemented')}>
+                <TouchableHighlight onPress={this.action(() => Actions.weeklyReport({type: 'reset'}))}>
                     <View style={styles.itemContainer}>
-                        <Icon style={styles.menuIcon} name="users" size={30}/>
-                        <Text style={styles.item}>Users</Text>
+                        <Icon style={styles.menuIcon} name="pie-chart" size={30}/>
+                        <Text style={styles.item}>Weekly Report</Text>
                     </View>
                 </TouchableHighlight>
 
                 <TouchableHighlight onPress={() => alert('not implemented')}>
                     <View style={styles.itemContainer}>
-                        <Icon style={styles.menuIcon} name="pie-chart" size={30}/>
-                        <Text style={styles.item}>Weekly Report</Text>
+                        <Icon style={styles.menuIcon} name="users" size={30}/>
+                        <Text style={styles.item}>Users</Text>
                     </View>
                 </TouchableHighlight>
             </ScrollView>

@@ -14,7 +14,7 @@ public class RecordWeeklyReportAction extends Action<Record> {
     private SimpleDateFormat weekFormat = new SimpleDateFormat("yyyy/MM/dd");
 
     @GET
-    public Map<String, WeeklyReport> weeklyReport(Map<String, String> params) {
+    public List<WeeklyReport> weeklyReport(Map<String, String> params) {
         List<Record> records = getRecords(params.get("user"));
 
         Map<String, WeeklyReport> reports = new TreeMap<>();
@@ -23,14 +23,14 @@ public class RecordWeeklyReportAction extends Action<Record> {
             addRecordToReport(reports, record);
         }
 
-        return reports;
+        return convertToList(reports);
     }
 
     private void addRecordToReport(Map<String, WeeklyReport> reports, Record record) {
         String week = getWeek(record);
 
         if (!reports.containsKey(week)) {
-            reports.put(week, new WeeklyReport());
+            reports.put(week, new WeeklyReport(week));
         }
 
         WeeklyReport wr = reports.get(week);
@@ -55,6 +55,14 @@ public class RecordWeeklyReportAction extends Action<Record> {
         c.clear(Calendar.MILLISECOND);
         c.set(Calendar.DAY_OF_WEEK, c.getFirstDayOfWeek());
         return c.getTime();
+    }
+
+    private List<WeeklyReport> convertToList(Map<String, WeeklyReport> reports) {
+        List<WeeklyReport> list = new ArrayList<>();
+        for (String week : reports.keySet()) {
+            list.add(reports.get(week));
+        }
+        return list;
     }
 
 }

@@ -1,10 +1,9 @@
 package jogging.models.record;
 
-import io.yawp.commons.utils.JsonUtils;
 import jogging.models.user.Role;
 import org.junit.Test;
 
-import java.util.Map;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -22,10 +21,10 @@ public class RecordWeeklyReportActionTest extends RecordTestCase {
         postRecord("2016/08/07 10:00:00", 3600, 10000);
         postRecord("2016/08/08 10:00:00", 4000, 10000);
 
-        Map<String, WeeklyReport> wrs = JsonUtils.fromMap(yawp, get("/records/weekly-report"), String.class, WeeklyReport.class);
+        List<WeeklyReport> wrs = fromList(get("/records/weekly-report"), WeeklyReport.class);
 
-        assertWeeklyReport(wrs, "2016/07/31", (5000 + 5000) / (double) (1800 + 2000), 5000);
-        assertWeeklyReport(wrs, "2016/08/07", (10000 + 10000) / (double) (3600 + 4000), 10000);
+        assertWeeklyReport(wrs.get(0), "2016/07/31", 2, (5000 + 5000) / (double) (1800 + 2000), 5000);
+        assertWeeklyReport(wrs.get(1), "2016/08/07", 2, (10000 + 10000) / (double) (3600 + 4000), 10000);
     }
 
     @Test
@@ -37,9 +36,9 @@ public class RecordWeeklyReportActionTest extends RecordTestCase {
         postRecord("2016/08/01 10:00:00", 2000, 5000);
 
         login("john");
-        Map<String, WeeklyReport> wrs = JsonUtils.fromMap(yawp, get("/records/weekly-report"), String.class, WeeklyReport.class);
+        List<WeeklyReport> wrs = fromList(get("/records/weekly-report"), WeeklyReport.class);
 
-        assertWeeklyReport(wrs, "2016/07/31", 5000 / (double) 1800, 5000);
+        assertWeeklyReport(wrs.get(0), "2016/07/31", 1, 5000 / (double) 1800, 5000);
     }
 
     @Test
@@ -48,14 +47,16 @@ public class RecordWeeklyReportActionTest extends RecordTestCase {
         postRecord("2016/07/31 10:00:00", 1800, 5000);
 
         login("mat", Role.ADMIN);
-        Map<String, WeeklyReport> wrs = JsonUtils.fromMap(yawp, get("/records/weekly-report", params("user", "john")), String.class, WeeklyReport.class);
+        List<WeeklyReport> wrs = fromList(get("/records/weekly-report", params("user", "john")), WeeklyReport.class);
 
-        assertWeeklyReport(wrs, "2016/07/31", 5000 / (double) 1800, 5000);
+        assertWeeklyReport(wrs.get(0), "2016/07/31", 1, 5000 / (double) 1800, 5000);
     }
 
-    private void assertWeeklyReport(Map<String, WeeklyReport> wrs, String week, double expectedAvgSpeed, int expectedAvgDistance) {
-        assertEquals(expectedAvgSpeed, wrs.get(week).avgSpeed, 0);
-        assertEquals(expectedAvgDistance, wrs.get(week).avgDistance);
+    private void assertWeeklyReport(WeeklyReport wr, String expectedWeek, int expectedCount, double expectedAvgSpeed, int expectedAvgDistance) {
+        assertEquals(expectedWeek, wr.week);
+        assertEquals(expectedCount, wr.count);
+        assertEquals(expectedAvgSpeed, wr.avgSpeed, 0);
+        assertEquals(expectedAvgDistance, wr.avgDistance);
     }
 
 }

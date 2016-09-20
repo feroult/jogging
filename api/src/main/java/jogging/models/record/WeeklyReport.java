@@ -2,6 +2,10 @@ package jogging.models.record;
 
 public class WeeklyReport {
 
+    String week;
+
+    int count;
+
     double avgSpeed;
 
     int avgDistance;
@@ -9,8 +13,10 @@ public class WeeklyReport {
     private transient int totalDistance;
 
     private transient int totalTime;
-
-    private transient int count;
+    
+    public WeeklyReport(String week) {
+        this.week = week;
+    }
 
     public void addRecord(Record record) {
         acumulate(record);
