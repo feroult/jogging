@@ -130,7 +130,7 @@ var styles = StyleSheet.create({
         flex: 1
     },
     rightContainerVelocity: {
-        width: 40,
+        width: 60,
         marginRight: 20,
         alignItems: 'center',
         justifyContent: 'center',
