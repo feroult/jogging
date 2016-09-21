@@ -17,6 +17,7 @@ import { connect } from '../utils/mobx/connect';
 import Menu from './menu';
 import SignIn from './auth/sign-in';
 import SignUp from './auth/sign-up';
+import RecordFilter from './records/record-filter';
 import RecordList from './records/record-list';
 import RecordForm from './records/record-form';
 import WeeklyReport from './records/weekly-report';
@@ -50,6 +51,10 @@ class Pages extends Component {
                     <Scene key="signUp" component={SignUp} hideNavBar={false} title="New Account"
                            duration={0}
                            backButtonImage={backButtonImage} leftButtonIconStyle={styles.backButtonIcon}/>
+                    <Scene key="recordFilter" component={RecordFilter} hideNavBar={false} title="Record Filter"
+                           duration={0}
+                           drawerImage={drawerImage}
+                           leftButtonIconStyle={styles.drawerButtonIcon}/>
                     <Scene key="records" component={RecordList} hideNavBar={false} title="Records"
                            duration={0}
                            initial={this.session.isUserLoggedIn}

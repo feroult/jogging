@@ -52,6 +52,13 @@ export default class Menu extends Component {
                     />
                 </View>
 
+                <TouchableHighlight onPress={this.action(() => Actions.recordFilter({type: 'reset'}))}>
+                    <View style={styles.itemContainer}>
+                        <Icon style={styles.menuIcon} name="funnel" size={30}/>
+                        <Text style={styles.item}>Filter</Text>
+                    </View>
+                </TouchableHighlight>
+
                 <TouchableHighlight onPress={this.action(() => Actions.records({type: 'reset'}))}>
                     <View style={styles.itemContainer}>
                         <Icon style={styles.menuIcon} name="stopwatch" size={30}/>
