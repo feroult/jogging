@@ -25,7 +25,7 @@ export default class {
     }
 
     loadWeeklyReport() {
-        return Record.weeklyReports().then((wrs) => {
+        return Record.weeklyReports(this.filter).then((wrs) => {
             this.wrs = wrs;
         });
     }
