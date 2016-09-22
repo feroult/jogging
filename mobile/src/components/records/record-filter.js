@@ -20,16 +20,22 @@ var Form = t.form.Form;
 
 var formOptions = {
     config: {
-        format: (date) => moment(date).format('MMMM Do YYYY, h:mm a')
+        format: (date) => moment(date).format('MMMM Do YYYY')
     },
     auto: 'none',
     fields: {
         hasFrom: {
             label: 'From'
         },
+        from: {
+            mode: 'date'
+        },
         hasTo: {
             label: 'To'
-        }
+        },
+        to: {
+            mode: 'date'
+        },
     }
 };
 
