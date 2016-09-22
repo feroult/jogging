@@ -6,7 +6,12 @@ class Record extends yawp('/records') {
         let q = this.order([{p: 'timestamp', d: 'desc'}]);
 
         if (filter) {
-            q.where(['timestamp', '>=', filter.from]);
+            if (filter.from) {
+                q.where(['timestamp', '>=', filter.from]);
+            }
+            if (filter.to) {
+                q.where(['timestamp', '<=', filter.to]);
+            }
         }
 
         return q.list();

@@ -100,8 +100,14 @@ export default class RecordFilter extends Component {
 
     prepareValue(filter) {
         let value = {};
-        value.from = new Date(filter.from);
-        value.to = new Date(filter.to);
+        if (filter.from) {
+            value.hasFrom = true;
+            value.from = new Date(filter.from);
+        }
+        if (filter.to) {
+            value.hasTo = true;
+            value.to = new Date(filter.to);
+        }
         return value;
     }
 
