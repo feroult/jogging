@@ -21,6 +21,15 @@ var Form = t.form.Form;
 var formOptions = {
     config: {
         format: (date) => moment(date).format('MMMM Do YYYY, h:mm a')
+    },
+    auto: 'none',
+    fields: {
+        hasFrom: {
+            label: 'From'
+        },
+        hasTo: {
+            label: 'To'
+        }
     }
 };
 
@@ -42,10 +51,16 @@ export default class RecordFilter extends Component {
     }
 
     getFormType = () => {
-        var fields = {
-            from: t.Date,
-            to: t.Date
-        };
+        var fields = {};
+
+        fields.hasFrom = t.Boolean;
+        if (this.state.value && this.state.value.hasFrom) {
+            fields.from = t.Date;
+        }
+        fields.hasTo = t.Boolean;
+        if (this.state.value && this.state.value.hasTo) {
+            fields.to = t.Date;
+        }
 
         if (this.session.isAdmin()) {
 
@@ -74,8 +89,12 @@ export default class RecordFilter extends Component {
 
     prepareFilter(value) {
         let filter = {};
-        filter.from = value.from.getTime();
-        filter.to = value.to.getTime();
+        if (value.from) {
+            filter.from = value.from.getTime();
+        }
+        if (value.to) {
+            filter.to = value.to.getTime();
+        }
         return filter;
     }
 
