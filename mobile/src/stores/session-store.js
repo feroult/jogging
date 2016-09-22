@@ -68,7 +68,7 @@ export default class {
         if (!this.currentUser) {
             return false;
         }
-        return this.currentUser.id === user.id;
+        return this.currentUser
     }
 
     logout() {

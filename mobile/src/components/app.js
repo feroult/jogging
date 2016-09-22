@@ -26,9 +26,7 @@ class App extends Component {
 
     componentWillMount() {
         context.store.session.init()
-            .then(() => {
-                this.setState({ready: true});
-            });
+            .then(() => this.setState({ready: true}));
     }
 
     render() {

@@ -36,6 +36,9 @@ var formOptions = {
         to: {
             mode: 'date'
         },
+        user: {
+            label: 'User'
+        }
     }
 };
 
@@ -50,9 +53,16 @@ export default class RecordFilter extends Component {
         };
         this.session = context.store.session;
         this.records = context.store.records;
+        this.users = context.store.users;
 
         if (this.records.hasFilter()) {
             this.state.value = this.prepareValue(this.records.getFilter());
+        }
+    }
+
+    componentWillMount() {
+        if (this.session.isAdmin()) {
+            return this.users.load();
         }
     }
 
@@ -68,8 +78,13 @@ export default class RecordFilter extends Component {
             fields.to = t.Date;
         }
 
-        if (this.session.isAdmin()) {
-
+        var users = this.users.all();
+        if (users.length > 0) {
+            var items = users.reduce((obj, user) => {
+                obj[user.username] = user.name;
+                return obj;
+            }, {});
+            fields.user = t.enums(items);
         }
 
         return t.struct(fields);

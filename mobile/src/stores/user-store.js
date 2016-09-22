@@ -7,6 +7,10 @@ export default class {
 
     @observable users = [];
 
+    init() {
+        return this.load();
+    }
+
     all() {
         return this.users.slice();
     }
