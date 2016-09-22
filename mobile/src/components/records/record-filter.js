@@ -35,6 +35,10 @@ export default class RecordFilter extends Component {
         };
         this.session = context.store.session;
         this.records = context.store.records;
+
+        if (this.records.hasFilter()) {
+            this.state.value = this.prepareValue(this.records.getFilter());
+        }
     }
 
     getFormType = () => {
@@ -71,7 +75,15 @@ export default class RecordFilter extends Component {
     prepareFilter(value) {
         let filter = {};
         filter.from = value.from.getTime();
+        filter.to = value.to.getTime();
         return filter;
+    }
+
+    prepareValue(filter) {
+        let value = {};
+        value.from = new Date(filter.from);
+        value.to = new Date(filter.to);
+        return value;
     }
 
     onChange = (value) => {

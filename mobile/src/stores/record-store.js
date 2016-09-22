@@ -46,6 +46,10 @@ export default class {
         return this.filter != null;
     }
 
+    getFilter() {
+        return this.filter;
+    }
+
     applyFilter(filter) {
         this.filter = filter;
     }
