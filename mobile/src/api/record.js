@@ -25,6 +25,7 @@ class Record extends yawp('/records') {
     }
 
     static weeklyReports(filter) {
+        console.log('FILTER', filter);
         var params = {};
         if (filter && filter.user) {
             params = {user: filter.user};

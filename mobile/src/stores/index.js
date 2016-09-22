@@ -4,8 +4,8 @@ import UserStore from './user-store';
 
 import { observable } from 'mobx';
 
-export default {
-    session: new SessionStore(),
-    records: new RecordStore(),
-    users: new UserStore()
-}
+var session = new SessionStore();
+var records = new RecordStore(session);
+var users = new UserStore();
+
+export default { session, records, users }

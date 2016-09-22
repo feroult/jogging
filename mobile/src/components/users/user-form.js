@@ -54,7 +54,7 @@ export default class UserForm extends Component {
         var fields = {
             name: t.String
         };
-
+        
         if (this.session.isAdmin() && this.canEditUser()) {
             fields.role = Role;
         }

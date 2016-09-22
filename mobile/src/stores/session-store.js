@@ -50,6 +50,10 @@ export default class {
         return User.signUp(info);
     }
 
+    getCurrentUser() {
+        return this.currentUser;
+    }
+
     isManagerOrAdmin() {
         if (!this.currentUser) {
             return false;
@@ -68,7 +72,7 @@ export default class {
         if (!this.currentUser) {
             return false;
         }
-        return this.currentUser
+        return this.currentUser.id === user.id;
     }
 
     logout() {
