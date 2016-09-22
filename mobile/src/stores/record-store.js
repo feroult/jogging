@@ -7,6 +7,7 @@ export default class {
 
     @observable records = [];
     @observable wrs = [];
+    @observable filter;
 
     all() {
         return this.records.slice();
@@ -17,9 +18,10 @@ export default class {
     }
 
     load() {
-        return Record.all((records) => {
-            this.records = records;
-        });
+        return Record.all(this.filter).then((records)=> {
+                this.records = records;
+            }
+        );
     }
 
     loadWeeklyReport() {
@@ -40,4 +42,15 @@ export default class {
         return record.destroy().then(() => this.reload());
     }
 
+    hasFilter() {
+        return this.filter != null;
+    }
+
+    applyFilter(filter) {
+        this.filter = filter;
+    }
+
+    clearFilter() {
+        this.filter = null;
+    }
 }

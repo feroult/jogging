@@ -16,7 +16,7 @@
     "react-native-spinkit": "^0.1.3",
     "react-native-vector-icons": "^2.1.0",
     "tcomb-form-native": "^0.6.1",
-    "yawp": "^1.0.31"
+    "yawp": "^1.0.32"
   },
   "devDependencies": {
     "babel-plugin-transform-decorators-legacy": "^1.3.4"

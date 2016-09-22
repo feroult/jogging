@@ -30,7 +30,8 @@ export default class RecordFilter extends Component {
     constructor(props, context) {
         super(props);
         this.state = {
-            loading: false
+            loading: false,
+            changed: false
         };
         this.session = context.store.session;
         this.records = context.store.records;
@@ -54,16 +55,29 @@ export default class RecordFilter extends Component {
         this.setState(this.state);
     }
 
-    save = () => {
+    apply = () => {
         let form = this.refs.form;
         let value = form.getValue();
         if (value) {
-            this.loading(true);
+            this.state.changed = false;
+            this.records.applyFilter(this.prepareFilter(value));
         }
     };
 
+    clear = () => {
+        this.records.clearFilter();
+    };
+
+    prepareFilter(value) {
+        let filter = {};
+        filter.from = value.from.getTime();
+        return filter;
+    }
+
     onChange = (value) => {
         this.state.value = value;
+        this.state.changed = true;
+        this.setState(this.state);
     };
 
     render() {
@@ -99,16 +113,22 @@ export default class RecordFilter extends Component {
     }
 
     renderSaveButton() {
+        if (this.records.hasFilter() && !this.state.changed) {
+            return null;
+        }
         return (
-            <TouchableHighlight style={styles.saveButton} onPress={ this.save }>
+            <TouchableHighlight style={styles.saveButton} onPress={ this.apply }>
                 <Text style={styles.buttonText}>Apply</Text>
             </TouchableHighlight>
         );
     }
 
     renderRemoveButton() {
+        if (!this.records.hasFilter()) {
+            return null;
+        }
         return (
-            <TouchableHighlight style={styles.removeButton} onPress={ this.remove }>
+            <TouchableHighlight style={styles.clearButton} onPress={ this.clear }>
                 <Text style={styles.buttonText}>Clear</Text>
             </TouchableHighlight>
         );
@@ -132,10 +152,10 @@ var styles = StyleSheet.create({
         borderWidth: 1,
         backgroundColor: '#3C91E6',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginBottom: 20
     },
-    removeButton: {
-        marginTop: 20,
+    clearButton: {
         height: 50,
         padding: 10,
         borderRadius: 10,
