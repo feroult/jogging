@@ -78,6 +78,14 @@ export default class RecordFilter extends Component {
             fields.to = t.Date;
         }
 
+        if (this.session.isAdmin()) {
+            this.configureUserField(fields);
+        }
+
+        return t.struct(fields);
+    };
+
+    configureUserField(fields) {
         fields.hasUser = t.Boolean;
         if (this.state.value && this.state.value.hasUser) {
             var users = this.users.all();
@@ -89,9 +97,7 @@ export default class RecordFilter extends Component {
                 fields.user = t.enums(items);
             }
         }
-
-        return t.struct(fields);
-    };
+    }
 
     loading(on) {
         this.state.loading = on;

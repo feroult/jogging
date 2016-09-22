@@ -6,15 +6,19 @@ class Record extends yawp('/records') {
         let q = this.order([{p: 'timestamp', d: 'desc'}]);
 
         if (filter) {
+            var where = [];
+
             if (filter.from) {
-                q.where(['timestamp', '>=', filter.from]);
+                where = where.concat(['timestamp', '>=', filter.from]);
             }
             if (filter.to) {
-                q.where(['timestamp', '<=', filter.to]);
+                where = where.concat(['timestamp', '<=', filter.to]);
             }
             if (filter.user) {
-                q.where(['userId', '=', '/users/' + filter.user]);
+                where = where.concat(['userId', '=', '/users/' + filter.user]);
             }
+
+            q.where(where);
         }
 
         return q.list();

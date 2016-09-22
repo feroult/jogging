@@ -1,6 +1,7 @@
 package jogging.models.record;
 
 import jogging.models.user.Role;
+import jogging.models.user.User;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -71,6 +72,18 @@ public class RecordShieldTest extends RecordTestCase {
 
         login("mat", Role.ADMIN);
         assertGetWithStatus("/records/weekly-report", params("user", "paul"), 200);
+    }
+
+    @Test
+    public void testCantChangeUserIdAfterRecordIsCreated() {
+        login("john");
+        Record record = from(postRecord("2016/07/31 10:00:00", 1800, 5000), Record.class);
+
+        login("mat", Role.ADMIN);
+        patch(record.id.getUri(), "{userId: '/users/mat'}");
+
+        Record patchedRecord = record.id.fetch();
+        assertEquals(id(User.class, "john"), patchedRecord.userId);
     }
 
 }

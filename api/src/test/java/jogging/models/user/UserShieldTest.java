@@ -31,13 +31,12 @@ public class UserShieldTest extends UserTestCase {
     public void testUserCannotChangeUsername() {
         login("john");
 
-        put("/users/john", "{username: 'john-lee', name: 'john lee', password: 'new-pass'}");
+        put("/users/john", "{username: 'john-lee', name: 'john lee'}");
         patch("/users/john", "{username: 'john-lee'}");
 
         User john = id(User.class, "john").fetch();
         assertEquals("john", john.username);
         assertEquals("john lee", john.name);
-        assertEquals("new-pass", john.password);
     }
 
     @Test
@@ -69,8 +68,8 @@ public class UserShieldTest extends UserTestCase {
     }
 
     @Test
-    public void testManagersCanUpdateOtherUsersRole() {
-        canUpdateOtherUserRoleLoggedAs(Role.MANAGER);
+    public void testManagersCannotUpdateOtherUsersRole() {
+        assertUserRoleAfterUpdateLoggedAs(Role.MANAGER, Role.USER);
     }
 
     @Test
@@ -85,7 +84,7 @@ public class UserShieldTest extends UserTestCase {
 
     @Test
     public void testAdminsCanUpdateOtherUsersRole() {
-        canUpdateOtherUserRoleLoggedAs(Role.ADMIN);
+        assertUserRoleAfterUpdateLoggedAs(Role.ADMIN, Role.MANAGER);
     }
 
     @Test
@@ -104,14 +103,18 @@ public class UserShieldTest extends UserTestCase {
         assertDeleteWithStatus("/users/john", 200);
     }
 
-    private void canUpdateOtherUserRoleLoggedAs(Role role) {
+    private void cannotUpdateOtherUserRoleLoggedAs(Role role) {
+        assertUserRoleAfterUpdateLoggedAs(role, Role.USER);
+    }
+
+    private void assertUserRoleAfterUpdateLoggedAs(Role role, Role newRole) {
         post("/users/sign-up", JOHN_SIGNUP_JSON);
 
         login("paul", role);
         patch("/users/john", "{role: 'MANAGER'}");
 
         User john = from(get("/users/john"), User.class);
-        assertEquals(Role.MANAGER, john.role);
+        assertEquals(newRole, john.role);
     }
 
     private void cannotChangeItsOwnRoleLoggedAs(Role role) {

@@ -43,7 +43,6 @@ public class User implements UserFacades.Regular, UserFacades.Manager, UserFacad
         return password;
     }
 
-    @Override
     public void setPassword(String password) {
         this.password = password;
     }

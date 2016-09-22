@@ -6,8 +6,10 @@ import io.yawp.repository.annotations.Id;
 import io.yawp.repository.annotations.Index;
 import jogging.models.user.User;
 
+import static jogging.models.record.RecordFacades.*;
+
 @Endpoint(path = "/records")
-public class Record {
+public class Record implements UpdateFacade {
 
     @Id
     IdRef<Record> id;
@@ -21,6 +23,40 @@ public class Record {
     int time;
 
     int distance;
-    private String week;
+
+    @Override
+    public IdRef<Record> getId() {
+        return id;
+    }
+
+    @Override
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    @Override
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    @Override
+    public int getDistance() {
+        return distance;
+    }
+
+    @Override
+    public int getTime() {
+        return time;
+    }
+
+    @Override
+    public void setDistance(int distance) {
+        this.distance = distance;
+    }
+
+    @Override
+    public void setTime(int time) {
+        this.time = time;
+    }
 
 }
