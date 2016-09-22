@@ -36,7 +36,7 @@ var formOptions = {
         to: {
             mode: 'date'
         },
-        user: {
+        hasUser: {
             label: 'User'
         }
     }
@@ -78,13 +78,16 @@ export default class RecordFilter extends Component {
             fields.to = t.Date;
         }
 
-        var users = this.users.all();
-        if (users.length > 0) {
-            var items = users.reduce((obj, user) => {
-                obj[user.username] = user.name;
-                return obj;
-            }, {});
-            fields.user = t.enums(items);
+        fields.hasUser = t.Boolean;
+        if (this.state.value && this.state.value.hasUser) {
+            var users = this.users.all();
+            if (users.length > 0) {
+                var items = users.reduce((obj, user) => {
+                    obj[user.username] = user.name;
+                    return obj;
+                }, {});
+                fields.user = t.enums(items);
+            }
         }
 
         return t.struct(fields);
@@ -110,11 +113,14 @@ export default class RecordFilter extends Component {
 
     prepareFilter(value) {
         let filter = {};
-        if (value.from) {
+        if (value.hasFrom) {
             filter.from = value.from.getTime();
         }
-        if (value.to) {
+        if (value.hasTo) {
             filter.to = value.to.getTime();
+        }
+        if (value.hasUser) {
+            filter.user = value.user;
         }
         return filter;
     }
@@ -129,6 +135,11 @@ export default class RecordFilter extends Component {
             value.hasTo = true;
             value.to = new Date(filter.to);
         }
+        if (filter.user) {
+            value.hasUser = true;
+            value.user = filter.user;
+        }
+
         return value;
     }
 

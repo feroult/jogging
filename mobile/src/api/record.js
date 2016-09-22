@@ -12,6 +12,9 @@ class Record extends yawp('/records') {
             if (filter.to) {
                 q.where(['timestamp', '<=', filter.to]);
             }
+            if (filter.user) {
+                q.where(['userId', '=', '/users/' + filter.user]);
+            }
         }
 
         return q.list();
