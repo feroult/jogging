@@ -54,6 +54,10 @@ export default class {
         return this.currentUser;
     }
 
+    getName() {
+        return this.currentUser != null ? this.currentUser.name : '';
+    }
+
     isManagerOrAdmin() {
         if (!this.currentUser) {
             return false;

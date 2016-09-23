@@ -95,27 +95,13 @@ export default class Navigation extends Component {
         this.session = context.store.session;
     }
 
-    componentWillMount() {
-        //UserUtils.init(isUserLoggedIn => {
-        //    this.session.init(isUserLoggedIn);
-        //    if (isUserLoggedIn) {
-        //        Actions.events();
-        //    }
-        //});
-    }
-
     closeDrawer() {
         this.drawer.close();
     }
 
     render() {
-        //if (!this.session.isInited) {
-        //    return (<Splash />);
-        //}
-
         var menu = <Menu navigation={this}/>;
 
-        //(ref) => this.drawer = ref
         return (
             <Drawer
                 ref={(ref) => this.drawer = ref}
@@ -134,7 +120,7 @@ export default class Navigation extends Component {
                 })}
                 negotiatePan>
 
-                <Pages isUserLoggedIn={this.session.isUserLoggedIn}/>
+                <Pages />
 
             </Drawer>
         );

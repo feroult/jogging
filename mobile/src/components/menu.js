@@ -16,8 +16,6 @@ import { connect } from '../utils/mobx/connect'
 
 const window = Dimensions.get('window');
 
-const uri = 'http://graph.facebook.com/100001252357122/picture?width=200&height=200&redirect=true';
-
 @connect
 export default class Menu extends Component {
 
@@ -41,8 +39,14 @@ export default class Menu extends Component {
 
     render() {
         var self = this;
+        var name = this.session.getName();
         return (
             <ScrollView scrollsToTop={false} style={styles.menu} contentContainerStyle={styles.content}>
+                <View style={styles.userContainer}>
+                    <Icon style={styles.userIcon} name="user" size={60}/>
+                    <Text style={styles.userName}>{name}</Text>
+                </View>
+
                 <View style={styles.shortcutsContainer}>
                     <Icon style={styles.shortcut} name="home" size={25}
                           onPress={this.action(() => Actions.records({type: 'reset'}))}
@@ -99,13 +103,23 @@ const styles = StyleSheet.create({
         backgroundColor: '#342E37',
     },
     content: {},
+    userContainer: {
+        height: 140,
+        alignItems: 'center',
+        paddingTop: 40
+    },
+    userIcon: {
+        color: 'white'
+    },
+    userName: {
+        color: 'white'
+    },
     shortcutsContainer: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
         backgroundColor: '#FA824C',
         padding: 10,
-        paddingTop: 30,
     },
     shortcut: {
         flex: 1,
