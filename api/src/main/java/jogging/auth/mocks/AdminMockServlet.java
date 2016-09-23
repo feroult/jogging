@@ -1,4 +1,4 @@
-package jogging.auth;
+package jogging.auth.mocks;
 
 import io.yawp.repository.IdRef;
 import io.yawp.repository.query.NoResultException;

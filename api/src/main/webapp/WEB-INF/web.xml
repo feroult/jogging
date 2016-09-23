@@ -24,13 +24,21 @@
 
     <servlet>
         <servlet-name>AdminMockServlet</servlet-name>
-        <servlet-class>jogging.auth.AdminMockServlet</servlet-class>
+        <servlet-class>jogging.auth.mocks.AdminMockServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdminMockServlet</servlet-name>
         <url-pattern>/_ah/mock-admin</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>TokensServlet</servlet-name>
+        <servlet-class>jogging.auth.mocks.TokensServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TokensServlet</servlet-name>
+        <url-pattern>/_ah/tokens</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>EndpointFixturesServlet</servlet-name>
