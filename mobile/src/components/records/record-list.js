@@ -26,13 +26,17 @@ export default class RecordList extends Component {
     constructor(props, context) {
         super(props);
         this.state = {
-            loading: false
+            loading: false,
+            ready: false,
         };
         this.records = context.store.records;
     }
 
     componentDidMount() {
-        this.refresh();
+        this.refresh().then(() => {
+            this.state.ready = true;
+            this.setState(this.state);
+        });
     }
 
     dataSource = () => {
@@ -45,7 +49,7 @@ export default class RecordList extends Component {
     }
 
     refresh = () => {
-        this.records.load().then(() => this.loading(false));
+        return this.records.load().then(() => this.loading(false));
     };
 
     openRecord = (record) => {
@@ -53,6 +57,10 @@ export default class RecordList extends Component {
     };
 
     render() {
+        if (!this.state.ready) {
+            return null;
+        }
+
         return (
             <View style={styles.container}>
                 <ListView
