@@ -9,13 +9,6 @@ import jogging.auth.AuthUtils;
 
 public class UserSignInAction extends Action<User> {
 
-    // TODO: encrypt password
-
-    public class SignInInfo {
-        String username;
-        String password;
-    }
-
     @POST
     public String signIn(SignInInfo info) {
 

@@ -16,6 +16,14 @@
     <servlet>
         <servlet-name>EndpointServlet</servlet-name>
         <servlet-class>io.yawp.servlet.EndpointServlet</servlet-class>
+        <init-param>
+            <param-name>enableCrossDomain</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>crossDomainOrigin</param-name>
+            <param-value>?</param-value>
+        </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>EndpointServlet</servlet-name>

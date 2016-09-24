@@ -32,7 +32,7 @@ public class UserShield extends Shield<User> {
     }
 
     @POST
-    public void signIn(UserSignInAction.SignInInfo info) {
+    public void signIn(SignInInfo info) {
         allow();
     }
 

@@ -11,7 +11,9 @@ class User extends yawp('/users') {
     }
 
     static signIn(info) {
-        return this.json(info).post('sign-in');
+        return this.json(info).post('sign-in').catch((err) => {
+            console.log('ERR', err);
+        });
     }
 
     static me(fn) {
