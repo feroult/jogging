@@ -20,9 +20,9 @@ public class Record implements UpdateFacade {
     @Index
     long timestamp;
 
-    int time;
+    double time;
 
-    int distance;
+    double distance;
 
     @Override
     public IdRef<Record> getId() {
@@ -40,12 +40,12 @@ public class Record implements UpdateFacade {
     }
 
     @Override
-    public int getDistance() {
+    public double getDistance() {
         return distance;
     }
 
     @Override
-    public int getTime() {
+    public double getTime() {
         return time;
     }
 

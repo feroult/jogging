@@ -19,8 +19,8 @@ var Form = t.form.Form;
 
 var RecordFormType = t.struct({
     date: t.Date,
-    distance: t.Integer,
-    time: t.Integer
+    distance: t.Number,
+    time: t.Number
 });
 
 var formOptions = {
@@ -52,7 +52,7 @@ export default class RecordForm extends Component {
             this.state.value = this.prepareValue(this.record);
         }
     }
-    
+
     loading(on) {
         this.state.loading = on;
         this.setState(this.state);

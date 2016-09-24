@@ -10,9 +10,9 @@ public class RecordFacades {
 
         long getTimestamp();
 
-        int getDistance();
+        double getDistance();
 
-        int getTime();
+        double getTime();
 
         void setTimestamp(long timestamp);
 

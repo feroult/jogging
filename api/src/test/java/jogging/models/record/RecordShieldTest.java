@@ -17,8 +17,8 @@ public class RecordShieldTest extends RecordTestCase {
 
         assertEquals("john", record.userId.fetch().getUsername());
         assertEquals(timestamp("2016/09/15 10:00:00"), record.timestamp);
-        assertEquals(1800, record.time);
-        assertEquals(5000, record.distance);
+        assertEquals(1800, record.time, 0);
+        assertEquals(5000, record.distance, 0);
     }
 
     @Test
@@ -31,7 +31,7 @@ public class RecordShieldTest extends RecordTestCase {
 
         patch(record.id.getUri(), "{distance: 1000}");
         Record patchedRecord = record.id.fetch();
-        assertEquals(1000, patchedRecord.distance);
+        assertEquals(1000, patchedRecord.distance, 0);
 
         assertDeleteWithStatus(record.id.getUri(), 200);
     }
@@ -60,7 +60,7 @@ public class RecordShieldTest extends RecordTestCase {
 
         patch(record.id.getUri(), "{distance: 1000}");
         Record patchedRecord = record.id.fetch();
-        assertEquals(1000, patchedRecord.distance);
+        assertEquals(1000, patchedRecord.distance, 0);
 
         assertDeleteWithStatus(record.id.getUri(), 200);
     }
