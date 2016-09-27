@@ -34,10 +34,11 @@ export default class {
             return AsyncStorage.setItem('session', JSON.stringify({
                 token: token
             }));
-        }).catch((error) => {
-            console.log('authentication error', error);
-            return this.logout();
         });
+        //.catch((error) => {
+        //    console.log('authentication error', error);
+        //    return this.logout();
+        //});
     }
 
     signIn(info) {
