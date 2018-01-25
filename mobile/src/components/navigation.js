@@ -142,7 +142,6 @@ var styles = StyleSheet.create({
     },
     navBar: {
         position: 'absolute',
-        //paddingTop: 30,
         alignItems: 'center',
         justifyContent: 'center',
         top: 0,
@@ -153,7 +152,6 @@ var styles = StyleSheet.create({
         borderBottomColor: 'black',
     },
     navBarTitle: {
-        //fontFamily: 'Roboto-Regular',
         top: (Platform.OS === 'ios') ? 18 : 3,
         textAlign: 'center',
         //marginLeft: 48,
